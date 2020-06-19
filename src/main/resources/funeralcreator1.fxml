@@ -44,15 +44,11 @@
                 </VBox>
             </children>
         </GridPane>
-        <AnchorPane prefHeight="400.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
-            <children>
-                <Button mnemonicParsing="false" prefWidth="60.0" styleClass="flow-button" text="Wstecz" AnchorPane.bottomAnchor="5.0" AnchorPane.rightAnchor="70.0">
-                    <opaqueInsets>
-                        <Insets />
-                    </opaqueInsets>
-                </Button>
-                <Button mnemonicParsing="false" prefWidth="60.0" styleClass="flow-button" text="Dalej" AnchorPane.bottomAnchor="5.0" AnchorPane.rightAnchor="5.0" />
-            </children>
-        </AnchorPane>
+          <Button mnemonicParsing="false" prefWidth="60.0" styleClass="flow-button" text="Wstecz" AnchorPane.bottomAnchor="5.0" AnchorPane.rightAnchor="70.0">
+              <opaqueInsets>
+                  <Insets />
+              </opaqueInsets>
+          </Button>
+          <Button mnemonicParsing="false" prefWidth="60.0" styleClass="flow-button" text="Dalej" AnchorPane.bottomAnchor="5.0" AnchorPane.rightAnchor="5.0" />
     </children>
 </AnchorPane>
