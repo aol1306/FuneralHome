@@ -28,6 +28,8 @@
         <mapping class="model.Quarter"/>
         <mapping class="model.StandardCoffin"/>
         <mapping class="model.WorkDay"/>
+        <mapping class="model.Car"/>
+        <mapping class="model.Coffin"/>
 
     </session-factory>
 </hibernate-configuration>

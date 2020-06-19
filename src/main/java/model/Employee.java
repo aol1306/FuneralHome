@@ -4,6 +4,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 public class Employee {
@@ -14,4 +16,51 @@ public class Employee {
     private String name;
     private String surname;
     private LocalDate dateOfEmployment;
+
+    private List<WorkDay> workDays = new ArrayList<>();
+
+    /**
+     * class extent
+     */
+    private static List<Employee> extent = new ArrayList<>();
+
+    /**
+     * Adds an employee to the extent.
+     *
+     * @param employee an employee
+     */
+    private static void addEmployee(Employee employee) {
+        extent.add(employee);
+    }
+
+    /**
+     * Removes an employee from the extent.
+     *
+     * @param employee an employee
+     */
+    private static void removeEmployee(Employee employee) {
+        extent.remove(employee);
+    }
+
+    public Employee() {
+        addEmployee(this);
+    }
+
+    public void addWorkDay(WorkDay workDay) {
+        if (!workDays.contains(workDay)) {
+            workDays.add(workDay);
+            workDay.setEmployee(this);
+        }
+    }
+
+    public void removeWorkDay(WorkDay workDay) {
+        if(workDays.contains(workDay)) {
+            workDays.remove(workDay);
+            workDay.setEmployee(null);
+        }
+    }
+
+    public List<WorkDay> getWorkDays() {
+        return workDays;
+    }
 }
