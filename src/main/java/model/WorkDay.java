@@ -1,8 +1,6 @@
 package model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.time.LocalDate;
 import java.time.LocalTime;
 
@@ -16,6 +14,7 @@ public class WorkDay {
     private LocalTime startTime;
     private LocalTime endTime;
 
+    @ManyToOne
     private Employee employee;
 
     public void setEmployee(Employee employee) {

@@ -1,8 +1,6 @@
 package model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,6 +12,7 @@ public class PremiumCoffin extends Coffin {
 
     private String material;
 
+    @OneToMany
     private List<Decoration> decorations = new ArrayList<>();
 
     public void addDecoration(Decoration decoration) {

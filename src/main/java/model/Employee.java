@@ -1,8 +1,6 @@
 package model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -17,11 +15,13 @@ public class Employee {
     private String surname;
     private LocalDate dateOfEmployment;
 
+    @OneToMany
     private List<WorkDay> workDays = new ArrayList<>();
 
     /**
      * class extent
      */
+    @Transient
     private static List<Employee> extent = new ArrayList<>();
 
     /**
@@ -29,6 +29,7 @@ public class Employee {
      *
      * @param employee an employee
      */
+    @Transient
     private static void addEmployee(Employee employee) {
         extent.add(employee);
     }

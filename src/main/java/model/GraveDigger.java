@@ -1,8 +1,6 @@
 package model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -15,6 +13,7 @@ public class GraveDigger extends Employee {
 
     private LocalDate allowanceCreationDate;
 
+    @ManyToMany
     private List<Funeral> funerals = new ArrayList<>();
 
     public void addFuneral(Funeral funeral) {

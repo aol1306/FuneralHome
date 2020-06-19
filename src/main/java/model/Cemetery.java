@@ -1,8 +1,6 @@
 package model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.util.*;
 
 @Entity
@@ -14,6 +12,7 @@ public class Cemetery {
     private String address;
     private Long distanceFromFuneralHome;
 
+    @OneToMany
     private List<Quarter> quarters = new ArrayList<>();
     private static Set<Quarter> allQuarters = new HashSet<>();
 

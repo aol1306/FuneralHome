@@ -19,8 +19,11 @@ public class Funeral {
     @Enumerated(EnumType.STRING)
     private FuneralStatus status;
 
+    @ManyToMany
     private List<GraveDigger> graveDiggers = new ArrayList<>();
+    @OneToMany
     private List<Coffin> coffins = new ArrayList<>();
+    @ManyToMany
     private List<Caravan> caravans = new ArrayList<>();
 
     public void addGraveDigger(GraveDigger graveDigger) {

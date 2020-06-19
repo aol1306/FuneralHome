@@ -1,8 +1,6 @@
 package model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,7 +12,11 @@ public class Caravan {
 
     private Integer capacity;
 
+    @ManyToMany
     private List<Funeral> funerals = new ArrayList<>();
+
+    @OneToOne
+    private Driver driver;
 
     public void addFuneral(Funeral funeral) {
         if(!funerals.contains(funeral)) {
@@ -32,5 +34,20 @@ public class Caravan {
 
     public List<Funeral> getFunerals() {
         return funerals;
+    }
+
+    public void setDriver(Driver driver) {
+        if (this.driver == driver) return;
+        if (this.driver != null && driver != null) {
+            this.driver.setCaravan(null);
+        }
+        this.driver = driver;
+        if (driver != null) {
+            driver.setCaravan(this);
+        }
+    }
+
+    public Driver getDriver() {
+        return driver;
     }
 }

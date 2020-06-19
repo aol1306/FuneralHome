@@ -1,14 +1,21 @@
 package model;
 
-import javax.persistence.MappedSuperclass;
+import javax.persistence.*;
 
-@MappedSuperclass
+@Entity
 public abstract class Coffin {
+    @Id
+    @GeneratedValue
+    private Long id;
+
     private Double price;
     private String deadmanName;
     private String deadmanSurname;
 
+    @ManyToOne
     private Funeral funeral;
+
+    @OneToOne
     private Quarter quarter;
 
     public void setFuneral(Funeral funeral) {

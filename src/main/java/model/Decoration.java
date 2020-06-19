@@ -1,8 +1,6 @@
 package model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
 public class Decoration {
@@ -13,6 +11,7 @@ public class Decoration {
     private String material;
     private Double price;
 
+    @ManyToOne
     private PremiumCoffin premiumCoffin;
 
     public void setPremiumCoffin(PremiumCoffin premiumCoffin) {

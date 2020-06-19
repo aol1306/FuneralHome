@@ -1,8 +1,6 @@
 package model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.time.LocalDate;
 
 @Entity
@@ -14,7 +12,9 @@ public class Quarter {
     private String number;
     private LocalDate paidUntil;
 
+    @OneToOne
     private Coffin coffin;
+    @ManyToOne
     private Cemetery cemetery;
 
     private Quarter(String number) {
