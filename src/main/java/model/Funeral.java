@@ -20,13 +20,23 @@ public class Funeral {
     @Enumerated(EnumType.STRING)
     private FuneralStatus status;
 
-    @ManyToMany
+    @ManyToMany(
+//            cascade = CascadeType.ALL
+    )
     private List<GraveDigger> graveDiggers = new ArrayList<>();
-    @OneToMany
+    @OneToMany(
+//            mappedBy = "funeral",
+//            cascade = CascadeType.ALL,
+//            orphanRemoval = true
+    )
     private List<Coffin> coffins = new CopyOnWriteArrayList<>();
-    @ManyToMany
+    @ManyToMany(
+//            cascade = CascadeType.ALL
+    )
     private List<Caravan> caravans = new ArrayList<>();
-    @OneToOne
+    @OneToOne(
+//            cascade = CascadeType.ALL
+    )
     private Customer customer;
 
     public Customer getCustomer() {

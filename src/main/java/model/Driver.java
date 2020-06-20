@@ -1,9 +1,6 @@
 package model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.OneToOne;
+import javax.persistence.*;
 import java.time.LocalDate;
 
 @Entity
@@ -15,7 +12,9 @@ public class Driver extends Employee {
     private String licenseCategory;
     private LocalDate licenseValidTo;
 
-    @OneToOne
+    @OneToOne(
+//            cascade = CascadeType.ALL
+    )
     private Caravan caravan;
 
     public void setCaravan(Caravan caravan) {

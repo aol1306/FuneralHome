@@ -15,7 +15,9 @@ public class Customer {
     private String surname;
     private String phoneNumber;
 
-    @OneToOne
+    @OneToOne(
+//            mappedBy = "funeral"
+    )
     private Funeral funeral;
 
     public Funeral getFuneral() {

@@ -15,7 +15,11 @@ public class Employee {
     private String surname;
     private LocalDate dateOfEmployment;
 
-    @OneToMany
+    @OneToMany(
+//            mappedBy = "employee",
+//            cascade = CascadeType.ALL,
+//            orphanRemoval = true
+    )
     private List<WorkDay> workDays = new ArrayList<>();
 
     /**

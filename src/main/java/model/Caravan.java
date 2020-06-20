@@ -12,10 +12,14 @@ public class Caravan {
 
     private Integer capacity;
 
-    @ManyToMany
+    @ManyToMany(
+//            mappedBy = "funeral"
+    )
     private List<Funeral> funerals = new ArrayList<>();
 
-    @OneToOne
+    @OneToOne(
+//            mappedBy = "driver"
+    )
     private Driver driver;
 
     public void addFuneral(Funeral funeral) {

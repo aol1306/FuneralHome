@@ -12,7 +12,9 @@ public class Quarter {
     private String number;
     private LocalDate paidUntil;
 
-    @OneToOne
+    @OneToOne(
+//            mappedBy = "coffin"
+    )
     private Coffin coffin;
     @ManyToOne
     private Cemetery cemetery;

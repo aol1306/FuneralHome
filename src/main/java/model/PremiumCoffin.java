@@ -12,7 +12,11 @@ public class PremiumCoffin extends Coffin {
 
     private String material;
 
-    @OneToMany
+    @OneToMany(
+//            mappedBy = "premiumcoffin",
+//            cascade = CascadeType.ALL,
+//            orphanRemoval = true
+    )
     private List<Decoration> decorations = new ArrayList<>();
 
     public void addDecoration(Decoration decoration) {
