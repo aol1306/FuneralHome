@@ -1,19 +1,14 @@
 package gui;
 
-import javafx.beans.property.SimpleListProperty;
-import javafx.beans.property.SimpleStringProperty;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-import model.Funeral;
+import model.*;
 
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
 public class CreatorData {
     // general
     private Funeral funeral = new Funeral();
-    // creator page 2
+    // creator page 2 - form data
     private boolean standardCoffinSelected = true;
     private boolean premiumCoffinSelected;
     private List<String> selectedDecorations = new ArrayList<>();

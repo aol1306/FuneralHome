@@ -32,4 +32,9 @@ public class PremiumCoffin extends Coffin {
     public List<Decoration> getDecorations() {
         return decorations;
     }
+
+    @Override
+    public String getType() {
+        return "premium";
+    }
 }

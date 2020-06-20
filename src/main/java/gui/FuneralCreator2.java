@@ -7,8 +7,28 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import model.Coffin;
+import model.Decoration;
+import model.PremiumCoffin;
+import model.StandardCoffin;
 
+import java.util.ArrayList;
 import java.util.List;
+
+enum CoffinType {
+    STANDARD("standard"),
+    PREMIUM("premium");
+
+    private String name;
+
+    CoffinType(String type) {
+        this.name = type;
+    }
+
+    public String getName() {
+        return name;
+    }
+}
 
 public class FuneralCreator2 extends FuneralCreatorBase {
     public class TableData {
@@ -160,17 +180,20 @@ public class FuneralCreator2 extends FuneralCreatorBase {
     }
 
     private void saveData() {
+        // form
         this.creatorData.setStandardCoffinSelected(standardCoffinRadioButton.isSelected());
         this.creatorData.setPremiumCoffinSelected(premiumCoffinRadioButton.isSelected());
         this.creatorData.setSelectedDecorations(selectedDecorationsListView.getItems());
         this.creatorData.setDeadmanName(deadmanName.getText());
         this.creatorData.setDeadmanSurname(deadmanSurname.getText());
-        this.creatorData.setSelectedSets(tableData);
+        // table
+        saveSelectedSets();
     }
 
     public void initData(CreatorData data) {
         super.initData(data);
         // restore data
+        // form
         standardCoffinRadioButton.setSelected(this.creatorData.isStandardCoffinSelected());
         if (this.creatorData.isStandardCoffinSelected()) {
             setDisableDecorationSelection(true);
@@ -182,6 +205,50 @@ public class FuneralCreator2 extends FuneralCreatorBase {
         selectedDecorationsListView.setItems(FXCollections.observableArrayList(this.creatorData.getSelectedDecorations()));
         deadmanName.setText(this.creatorData.getDeadmanName());
         deadmanSurname.setText(this.creatorData.getDeadmanSurname());
-        tableData.addAll(this.creatorData.getSelectedSets());
+        // table
+        loadSelectedSets();
+    }
+
+    public void saveSelectedSets() {
+        for (var coffin : this.creatorData.getFuneral().getCoffins()) {
+            this.creatorData.getFuneral().removeCoffin(coffin);
+        }
+        for (var entry : tableData) {
+            Coffin coffin;
+            if (entry.coffinType.getValue().equals(CoffinType.STANDARD.getName())) {
+                coffin = new StandardCoffin();
+            }
+            // premium type
+            else {
+                coffin = new PremiumCoffin();
+                for (var decorationName : entry.decorations.getValue()) {
+                    var decoration = new Decoration();
+                    decoration.setName(decorationName);
+                    ((PremiumCoffin)coffin).addDecoration(decoration);
+                }
+            }
+            coffin.setDeadmanName(entry.deadmanName.getValue());
+            coffin.setDeadmanSurname(entry.deadmanSurname.getValue());
+
+            this.creatorData.getFuneral().addCoffin(coffin);
+        }
+    }
+
+    public void loadSelectedSets() {
+        for (var coffin : this.creatorData.getFuneral().getCoffins()) {
+            var tableEntry = new FuneralCreator2.TableData();
+            tableEntry.deadmanName.setValue(coffin.getDeadmanName());
+            tableEntry.deadmanSurname.setValue(coffin.getDeadmanSurname());
+            tableEntry.coffinType.setValue(coffin.getType());
+            if (coffin instanceof PremiumCoffin) {
+                var decorationList = ((PremiumCoffin) coffin).getDecorations();
+                var resultList = new ArrayList<String>();
+                for (var decoration : decorationList) {
+                    resultList.add(decoration.getName());
+                }
+                tableEntry.decorations.setValue(FXCollections.observableArrayList(resultList));
+            }
+            tableData.add(tableEntry);
+        }
     }
 }

@@ -8,6 +8,7 @@ public class Decoration {
     @GeneratedValue
     private Long id;
 
+    private String name;
     private String material;
     private Double price;
 
@@ -27,5 +28,13 @@ public class Decoration {
 
     public PremiumCoffin getPremiumCoffin() {
         return premiumCoffin;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 }

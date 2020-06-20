@@ -5,6 +5,7 @@ import java.time.Duration;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 @Entity
 public class Funeral {
@@ -22,7 +23,7 @@ public class Funeral {
     @ManyToMany
     private List<GraveDigger> graveDiggers = new ArrayList<>();
     @OneToMany
-    private List<Coffin> coffins = new ArrayList<>();
+    private List<Coffin> coffins = new CopyOnWriteArrayList<>();
     @ManyToMany
     private List<Caravan> caravans = new ArrayList<>();
     @OneToOne

@@ -11,4 +11,9 @@ public class StandardCoffin extends Coffin {
     private Long id;
 
     private boolean isBurnable;
+
+    @Override
+    public String getType() {
+        return "standard";
+    }
 }

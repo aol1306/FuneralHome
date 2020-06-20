@@ -47,4 +47,24 @@ public abstract class Coffin {
             quarter.setCoffin(this);
         }
     }
+
+    public String getDeadmanName() {
+        return deadmanName;
+    }
+
+    public void setDeadmanName(String deadmanName) {
+        this.deadmanName = deadmanName;
+    }
+
+    public String getDeadmanSurname() {
+        return deadmanSurname;
+    }
+
+    public void setDeadmanSurname(String deadmanSurname) {
+        this.deadmanSurname = deadmanSurname;
+    }
+
+    public String getType() {
+        return "generic";
+    }
 }
