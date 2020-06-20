@@ -5,6 +5,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.DateCell;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
+import model.Customer;
 
 import java.time.LocalDate;
 
@@ -49,19 +50,20 @@ public class FuneralCreator1 extends FuneralCreatorBase {
     }
 
     private void saveData() {
-        this.creatorData.setClientName(clientName.getText());
-        this.creatorData.setClientSurname(clientSurname.getText());
-        this.creatorData.setClientPhoneNumber(clientPhoneNumber.getText());
-        this.creatorData.setFuneralDate(datePicker.getValue());
-
+        var customer = new Customer();
+        customer.setName(clientName.getText());
+        customer.setSurname(clientSurname.getText());
+        customer.setPhoneNumber(clientPhoneNumber.getText());
+        this.creatorData.getFuneral().setFuneralDate(datePicker.getValue());
+        this.creatorData.getFuneral().setCustomer(customer);
     }
 
     public void initData(CreatorData data) {
         super.initData(data);
         // restore data
-        this.clientName.setText(this.creatorData.getClientName());
-        this.clientSurname.setText(this.creatorData.getClientSurname());
-        this.clientPhoneNumber.setText(this.creatorData.getClientPhoneNumber());
-        this.datePicker.setValue(this.creatorData.getFuneralDate());
+        this.clientName.setText(this.creatorData.getFuneral().getCustomer().getName());
+        this.clientSurname.setText(this.creatorData.getFuneral().getCustomer().getSurname());
+        this.clientPhoneNumber.setText(this.creatorData.getFuneral().getCustomer().getPhoneNumber());
+        this.datePicker.setValue(this.creatorData.getFuneral().getFuneralDate());
     }
 }

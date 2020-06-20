@@ -25,6 +25,23 @@ public class Funeral {
     private List<Coffin> coffins = new ArrayList<>();
     @ManyToMany
     private List<Caravan> caravans = new ArrayList<>();
+    @OneToOne
+    private Customer customer;
+
+    public Customer getCustomer() {
+        return customer;
+    }
+
+    public void setCustomer(Customer customer) {
+        if (this.customer == customer) return;
+        if (this.customer != null && customer != null) {
+            this.customer.setFuneral(null);
+        }
+        this.customer = customer;
+        if (customer != null) {
+            customer.setFuneral(this);
+        }
+    }
 
     public void addGraveDigger(GraveDigger graveDigger) {
         if(!graveDiggers.contains(graveDigger)) {
@@ -78,5 +95,13 @@ public class Funeral {
 
     public List<Caravan> getCaravans() {
         return caravans;
+    }
+
+    public LocalDate getFuneralDate() {
+        return funeralDate;
+    }
+
+    public void setFuneralDate(LocalDate funeralDate) {
+        this.funeralDate = funeralDate;
     }
 }

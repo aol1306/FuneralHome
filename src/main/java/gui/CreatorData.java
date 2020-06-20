@@ -4,17 +4,15 @@ import javafx.beans.property.SimpleListProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import model.Funeral;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
 public class CreatorData {
-    // creator page 1
-    private String clientName;
-    private String clientSurname;
-    private String clientPhoneNumber;
-    private LocalDate funeralDate;
+    // general
+    private Funeral funeral = new Funeral();
     // creator page 2
     private boolean standardCoffinSelected = true;
     private boolean premiumCoffinSelected;
@@ -22,38 +20,6 @@ public class CreatorData {
     private String deadmanName;
     private String deadmanSurname;
     private List<FuneralCreator2.TableData> selectedSets = new ArrayList<>();
-
-    public String getClientName() {
-        return clientName;
-    }
-
-    public void setClientName(String clientName) {
-        this.clientName = clientName;
-    }
-
-    public String getClientSurname() {
-        return clientSurname;
-    }
-
-    public void setClientSurname(String clientSurname) {
-        this.clientSurname = clientSurname;
-    }
-
-    public String getClientPhoneNumber() {
-        return clientPhoneNumber;
-    }
-
-    public void setClientPhoneNumber(String clientPhoneNumber) {
-        this.clientPhoneNumber = clientPhoneNumber;
-    }
-
-    public LocalDate getFuneralDate() {
-        return funeralDate;
-    }
-
-    public void setFuneralDate(LocalDate funeralDate) {
-        this.funeralDate = funeralDate;
-    }
 
     public boolean isStandardCoffinSelected() {
         return standardCoffinSelected;
@@ -101,5 +67,13 @@ public class CreatorData {
 
     public void setSelectedSets(List<FuneralCreator2.TableData> selectedSets) {
         this.selectedSets = selectedSets;
+    }
+
+    public Funeral getFuneral() {
+        return funeral;
+    }
+
+    public void setFuneral(Funeral funeral) {
+        this.funeral = funeral;
     }
 }

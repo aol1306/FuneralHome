@@ -30,6 +30,7 @@
         <mapping class="model.WorkDay"/>
         <mapping class="model.Car"/>
         <mapping class="model.Coffin"/>
+        <mapping class="model.Customer"/>
 
     </session-factory>
 </hibernate-configuration>
