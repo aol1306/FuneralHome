@@ -3,21 +3,19 @@ package gui;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 
-
-public class FuneralCreator1 extends ControllerBase {
+public class FuneralCreator4 extends ControllerBase {
+    @FXML
+    private Button cancelButton;
 
     @FXML
     private Button backButton;
 
     @FXML
-    private Button nextButton;
+    private Button acceptButton;
 
     public void initialize() {
         backButton.setOnAction(e -> {
-            setView("/splash.fxml");
-        });
-        nextButton.setOnAction(e -> {
-            setView("/funeralcreator2.fxml");
+            setView("/funeralcreator3.fxml");
         });
     }
 }

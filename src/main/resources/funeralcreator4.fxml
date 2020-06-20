@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane fx:id="rootPane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.FuneralCreator4">
+    <children>
+        <Label text="Podsumowanie" AnchorPane.leftAnchor="5.0" AnchorPane.topAnchor="5.0" />
+        <TableView fx:id="summaryTableView" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="40.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="25.0">
+            <columns>
+                <TableColumn prefWidth="75.0" text="Imię" />
+                <TableColumn prefWidth="75.0" text="Nazwisko" />
+                <TableColumn prefWidth="75.0" text="Trumna" />
+                <TableColumn prefWidth="75.0" text="Kwatera" />
+                <TableColumn prefWidth="75.0" text="Cena" />
+            </columns>
+        </TableView>
+          <Button fx:id="cancelButton" mnemonicParsing="false" text="Anuluj zamówienie" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="5.0" />
+          <Label text="Razem do zapłaty: 0.00zł" AnchorPane.bottomAnchor="10.0" AnchorPane.rightAnchor="170.0" />
+          <Button fx:id="backButton" mnemonicParsing="false" prefWidth="60.0" styleClass="flow-button" text="Wstecz" AnchorPane.bottomAnchor="5.0" AnchorPane.rightAnchor="80.0">
+              <opaqueInsets>
+                  <Insets />
+              </opaqueInsets>
+          </Button>
+          <Button fx:id="acceptButton" mnemonicParsing="false" prefHeight="25.0" prefWidth="69.0" styleClass="flow-button" text="Akceptuj" AnchorPane.bottomAnchor="5.0" AnchorPane.rightAnchor="5.0" />
+    </children>
+</AnchorPane>
