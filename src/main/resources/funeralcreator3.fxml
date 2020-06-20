@@ -6,12 +6,14 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane fx:id="rootPane" prefHeight="400.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.FuneralCreator3" AnchorPane.topAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0">
+<AnchorPane fx:id="rootPane" prefHeight="400.0" prefWidth="700.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.FuneralCreator3">
     <children>
         <Label text="Wybierz cmentarz" AnchorPane.leftAnchor="5.0" AnchorPane.topAnchor="5.0" />
-        <ComboBox prefWidth="150.0" AnchorPane.leftAnchor="5.0" AnchorPane.topAnchor="25.0" />
+        <ComboBox fx:id="cemeteryComboBox" layoutX="39.0" layoutY="26.0" prefWidth="150.0" AnchorPane.leftAnchor="39.0" AnchorPane.topAnchor="26.0" />
         <TableView fx:id="matchCoffinTableView" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="40.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="80.0">
             <columns>
                 <TableColumn prefWidth="75.0" text="Imię" />
@@ -27,5 +29,10 @@
               </opaqueInsets>
           </Button>
           <Button fx:id="nextButton" mnemonicParsing="false" prefWidth="60.0" styleClass="flow-button" text="Dalej" AnchorPane.bottomAnchor="5.0" AnchorPane.rightAnchor="5.0" />
+      <ImageView fx:id="loadingImageView" fitHeight="32.0" fitWidth="29.0" layoutX="5.0" layoutY="24.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="5.0" AnchorPane.topAnchor="24.0">
+         <image>
+            <Image url="@Spinner-1s-200px.gif" />
+         </image>
+      </ImageView>
     </children>
 </AnchorPane>

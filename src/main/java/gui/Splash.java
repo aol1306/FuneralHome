@@ -9,6 +9,8 @@ import model.Quarter;
 import org.hibernate.boot.MetadataSources;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
 import javax.swing.*;
 
 public class Splash extends ControllerBase {
@@ -64,6 +66,9 @@ public class Splash extends ControllerBase {
         worker.execute();
     }
 
+    /**
+     * Initialize DB. Only call from SwingWorker.
+     */
     private void initDb() {
         Main.registry = new StandardServiceRegistryBuilder().configure("hibernate.cfg.xml").build();
         var metadata = new MetadataSources(Main.registry).getMetadataBuilder().build();

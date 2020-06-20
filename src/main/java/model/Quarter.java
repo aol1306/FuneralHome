@@ -19,6 +19,9 @@ public class Quarter {
     @ManyToOne
     private Cemetery cemetery;
 
+    // default constructor for Hibernate
+    private Quarter() {}
+
     private Quarter(String number) {
         this.number = number;
     }

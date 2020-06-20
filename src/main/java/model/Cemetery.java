@@ -20,6 +20,9 @@ public class Cemetery {
     private List<Quarter> quarters = new ArrayList<>();
     private static Set<Quarter> allQuarters = new HashSet<>();
 
+    // default constructor for Hibernate
+    private Cemetery() {}
+
     public Cemetery(String address, Double distanceFromFuneralHome) {
         setAddress(address);
         setDistanceFromFuneralHome(distanceFromFuneralHome);
@@ -53,5 +56,10 @@ public class Cemetery {
 
     public void setDistanceFromFuneralHome(Double distanceFromFuneralHome) {
         this.distanceFromFuneralHome = distanceFromFuneralHome;
+    }
+
+    @Override
+    public String toString() {
+        return getAddress();
     }
 }
