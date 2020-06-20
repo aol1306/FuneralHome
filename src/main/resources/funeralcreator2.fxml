@@ -5,6 +5,8 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.control.ToggleGroup?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -13,7 +15,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane fx:id="rootPane" prefHeight="400.0" prefWidth="600.0" stylesheets="@style.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.FuneralCreator2" AnchorPane.topAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0">
+<AnchorPane fx:id="rootPane" prefHeight="400.0" prefWidth="700.0" stylesheets="@style.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.FuneralCreator2">
     <children>
         <GridPane AnchorPane.bottomAnchor="40.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <columnConstraints>
@@ -31,7 +33,7 @@
                                 <Insets left="5.0" right="5.0" top="5.0" />
                             </VBox.margin>
                         </Label>
-                        <RadioButton mnemonicParsing="false" text="Standard">
+                        <RadioButton fx:id="standardCoffinRadioButton" mnemonicParsing="false" text="Standard">
                             <toggleGroup>
                                 <ToggleGroup fx:id="coffinGroup" />
                             </toggleGroup>
@@ -39,7 +41,7 @@
                                 <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                             </VBox.margin>
                         </RadioButton>
-                        <RadioButton mnemonicParsing="false" selected="true" text="Premium" toggleGroup="$coffinGroup">
+                        <RadioButton fx:id="premiumCoffinRadioButton" mnemonicParsing="false" selected="true" text="Premium" toggleGroup="$coffinGroup">
                             <VBox.margin>
                                 <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                             </VBox.margin>
@@ -62,8 +64,8 @@
                                 <ListView fx:id="selectedDecorationsListView" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="2" />
                                 <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1">
                                     <children>
-                                        <Button mnemonicParsing="false" text="&gt;" AnchorPane.leftAnchor="2.0" AnchorPane.rightAnchor="2.0" AnchorPane.topAnchor="5.0" />
-                                        <Button mnemonicParsing="false" text="&lt;" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="2.0" AnchorPane.rightAnchor="2.0" />
+                                        <Button fx:id="addDecorationButton" mnemonicParsing="false" text="&gt;" AnchorPane.leftAnchor="2.0" AnchorPane.rightAnchor="2.0" AnchorPane.topAnchor="5.0" />
+                                        <Button fx:id="removeDecorationButton" mnemonicParsing="false" text="&lt;" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="2.0" AnchorPane.rightAnchor="2.0" />
                                     </children>
                                 </AnchorPane>
                                 <ListView fx:id="availableDecorationsListView" layoutX="160.0" layoutY="10.0" prefHeight="200.0" prefWidth="200.0" />
@@ -77,7 +79,7 @@
                                 <Insets left="5.0" right="5.0" top="5.0" />
                             </VBox.margin>
                         </Label>
-                        <TextField>
+                        <TextField fx:id="deadmanName">
                             <VBox.margin>
                                 <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                             </VBox.margin>
@@ -87,7 +89,7 @@
                                 <Insets left="5.0" right="5.0" top="5.0" />
                             </VBox.margin>
                         </Label>
-                        <TextField>
+                        <TextField fx:id="deadmanSurname">
                             <VBox.margin>
                                 <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                             </VBox.margin>
@@ -97,7 +99,7 @@
                                 <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                             </VBox.margin>
                             <children>
-                                <Button mnemonicParsing="false" text="Dodaj" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                                <Button fx:id="addOrderButton" mnemonicParsing="false" text="Dodaj" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                             </children>
                         </AnchorPane>
                     </children>
@@ -105,8 +107,14 @@
                 <AnchorPane prefHeight="360.0" prefWidth="306.0" GridPane.columnIndex="1">
                     <children>
                         <Label text="Wybrane zestawy" AnchorPane.leftAnchor="5.0" AnchorPane.topAnchor="5.0" />
-                        <ListView fx:id="selectedSetsListView" prefHeight="335.0" prefWidth="285.0" AnchorPane.bottomAnchor="30.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="25.0" />
-                        <Button layoutX="243.0" layoutY="334.0" mnemonicParsing="false" text="Usuń zestaw" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="5.0" />
+                        <TableView fx:id="selectedSetsTableView" prefHeight="335.0" prefWidth="285.0" AnchorPane.bottomAnchor="30.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="25.0">
+                     <columns>
+                        <TableColumn fx:id="deadmanNameColumn" prefWidth="75.0" text="Imię" />
+                        <TableColumn fx:id="deadmanSurnameColumn" prefWidth="75.0" text="Nazwisko" />
+                        <TableColumn fx:id="coffinTypeColumn" prefWidth="75.0" text="Trumna" />
+                        <TableColumn fx:id="decorationsColumn" prefWidth="75.0" text="Dekoracje" />
+                     </columns></TableView>
+                        <Button fx:id="removeOrderButton" layoutX="243.0" layoutY="334.0" mnemonicParsing="false" text="Usuń zestaw" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="5.0" />
                     </children>
                 </AnchorPane>
             </children>
