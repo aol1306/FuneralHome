@@ -13,7 +13,7 @@ public class Driver extends Employee {
     private LocalDate licenseValidTo;
 
     @OneToOne(
-//            cascade = CascadeType.ALL
+            cascade = CascadeType.ALL
     )
     private Caravan caravan;
 

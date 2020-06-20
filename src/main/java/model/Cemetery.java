@@ -13,9 +13,9 @@ public class Cemetery {
     private Double distanceFromFuneralHome;
 
     @OneToMany(
-//            mappedBy = "cemetery",
-//            cascade = CascadeType.ALL,
-//            orphanRemoval = true
+            mappedBy = "cemetery",
+            cascade = CascadeType.ALL,
+            orphanRemoval = true
     )
     private List<Quarter> quarters = new ArrayList<>();
     private static Set<Quarter> allQuarters = new HashSet<>();

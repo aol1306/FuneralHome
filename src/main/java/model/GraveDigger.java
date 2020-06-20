@@ -14,7 +14,7 @@ public class GraveDigger extends Employee {
     private LocalDate allowanceCreationDate;
 
     @ManyToMany(
-//            mappedBy = "funeral"
+            mappedBy = "graveDiggers"
     )
     private List<Funeral> funerals = new ArrayList<>();
 

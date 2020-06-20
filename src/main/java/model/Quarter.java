@@ -13,7 +13,7 @@ public class Quarter {
     private LocalDate paidUntil;
 
     @OneToOne(
-//            mappedBy = "coffin"
+            mappedBy = "quarter"
     )
     private Coffin coffin;
     @ManyToOne

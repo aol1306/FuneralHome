@@ -16,7 +16,7 @@ public abstract class Coffin {
     private Funeral funeral;
 
     @OneToOne(
-//            cascade = CascadeType.ALL
+            cascade = CascadeType.ALL
     )
     private Quarter quarter;
 

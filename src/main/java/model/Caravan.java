@@ -13,12 +13,12 @@ public class Caravan {
     private Integer capacity;
 
     @ManyToMany(
-//            mappedBy = "funeral"
+            mappedBy = "caravans"
     )
     private List<Funeral> funerals = new ArrayList<>();
 
     @OneToOne(
-//            mappedBy = "driver"
+            mappedBy = "caravan"
     )
     private Driver driver;
 

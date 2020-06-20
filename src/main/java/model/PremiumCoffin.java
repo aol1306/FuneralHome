@@ -13,9 +13,9 @@ public class PremiumCoffin extends Coffin {
     private String material;
 
     @OneToMany(
-//            mappedBy = "premiumcoffin",
-//            cascade = CascadeType.ALL,
-//            orphanRemoval = true
+            mappedBy = "premiumCoffin",
+            cascade = CascadeType.ALL,
+            orphanRemoval = true
     )
     private List<Decoration> decorations = new ArrayList<>();
 

@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 @Entity
+@Table(name = "Funeral")
 public class Funeral {
     @Id
     @GeneratedValue
@@ -21,21 +22,37 @@ public class Funeral {
     private FuneralStatus status;
 
     @ManyToMany(
-//            cascade = CascadeType.ALL
+            cascade = {
+                    CascadeType.PERSIST,
+                    CascadeType.MERGE
+            }
+    )
+    @JoinTable(
+            name = "Funeral_GraveDigger",
+            joinColumns = @JoinColumn(name = "funeral_id"),
+            inverseJoinColumns = @JoinColumn(name = "gravedigger_id")
     )
     private List<GraveDigger> graveDiggers = new ArrayList<>();
     @OneToMany(
-//            mappedBy = "funeral",
-//            cascade = CascadeType.ALL,
-//            orphanRemoval = true
+            mappedBy = "funeral",
+            cascade = CascadeType.ALL,
+            orphanRemoval = true
     )
     private List<Coffin> coffins = new CopyOnWriteArrayList<>();
     @ManyToMany(
-//            cascade = CascadeType.ALL
+            cascade = {
+                    CascadeType.PERSIST,
+                    CascadeType.MERGE
+            }
+    )
+    @JoinTable(
+            name = "Funeral_Caravan",
+            joinColumns = @JoinColumn(name = "funeral_id"),
+            inverseJoinColumns = @JoinColumn(name = "caravan_id")
     )
     private List<Caravan> caravans = new ArrayList<>();
     @OneToOne(
-//            cascade = CascadeType.ALL
+            cascade = CascadeType.ALL
     )
     private Customer customer;
 

@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 public class Employee {
     @Id
     @GeneratedValue
@@ -16,9 +17,9 @@ public class Employee {
     private LocalDate dateOfEmployment;
 
     @OneToMany(
-//            mappedBy = "employee",
-//            cascade = CascadeType.ALL,
-//            orphanRemoval = true
+            mappedBy = "employee",
+            cascade = CascadeType.ALL,
+            orphanRemoval = true
     )
     private List<WorkDay> workDays = new ArrayList<>();
 
