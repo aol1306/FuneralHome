@@ -25,13 +25,13 @@
                 <VBox prefHeight="200.0" prefWidth="100.0">
                     <children>
                         <Label text="Data pogrzebu" />
-                        <DatePicker />
+                        <DatePicker fx:id="datePicker" />
                         <Label text="Imię klienta" />
-                        <TextField />
+                        <TextField fx:id="clientName"/>
                         <Label text="Nazwisko klienta" />
-                        <TextField />
+                        <TextField fx:id="clientSurname"/>
                         <Label text="Nr telefonu klienta" />
-                        <TextField />
+                        <TextField fx:id="clientPhoneNumber" />
                     </children>
                     <GridPane.margin>
                         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />

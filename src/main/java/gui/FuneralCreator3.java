@@ -3,7 +3,7 @@ package gui;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 
-public class FuneralCreator3 extends ControllerBase {
+public class FuneralCreator3 extends FuneralCreatorBase {
     @FXML
     private Button backButton;
 
@@ -17,5 +17,9 @@ public class FuneralCreator3 extends ControllerBase {
         nextButton.setOnAction(e -> {
             setView("/funeralcreator4.fxml");
         });
+    }
+
+    public void initData(CreatorData data) {
+        super.initData(data);
     }
 }

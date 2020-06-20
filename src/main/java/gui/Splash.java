@@ -1,19 +1,13 @@
 package gui;
 
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
 import main.Main;
 import org.hibernate.boot.MetadataSources;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 
 import javax.swing.*;
-import java.io.IOException;
 
 public class Splash extends ControllerBase {
     @FXML
@@ -39,7 +33,7 @@ public class Splash extends ControllerBase {
         };
         worker.addPropertyChangeListener(evt -> {
             if ("progress".equals(evt.getPropertyName())) {
-                text.setText("Completed");
+                text.setText("Gotowe!");
                 planFuneralButton.setDisable(false);
             }
         });

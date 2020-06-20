@@ -5,7 +5,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
 
-public class FuneralCreator2 extends ControllerBase {
+public class FuneralCreator2 extends FuneralCreatorBase {
     @FXML
     private ListView<String> selectedSetsListView;
 
@@ -31,5 +31,9 @@ public class FuneralCreator2 extends ControllerBase {
         selectedSetsListView.setItems(FXCollections.observableArrayList());
         availableDecorationsListView.setItems(FXCollections.observableArrayList("Dekoracja 1", "Dekoracja 2"));
         selectedDecorationsListView.setItems(FXCollections.observableArrayList("Dekoracja 3"));
+    }
+
+    public void initData(CreatorData data) {
+        super.initData(data);
     }
 }
