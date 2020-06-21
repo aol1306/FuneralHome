@@ -16,6 +16,7 @@ import main.Helper;
 import main.Main;
 import model.Cemetery;
 import model.Quarter;
+import org.hibernate.Session;
 
 import javax.swing.*;
 import java.util.List;
@@ -43,6 +44,7 @@ public class FuneralCreator3 extends FuneralCreatorBase {
             return quarters.get();
         }
     }
+
     @FXML
     private Button backButton;
 
@@ -75,6 +77,8 @@ public class FuneralCreator3 extends FuneralCreatorBase {
     private ObservableList<Cemetery> cemeteryComboBoxList;
 
     private List<Cemetery> cemeteryList;
+
+    Session session = Main.sessionFactory.openSession();
 
     public void initialize() {
         loadCemeteries();
@@ -110,11 +114,10 @@ public class FuneralCreator3 extends FuneralCreatorBase {
         var worker = new SwingWorker<Void, Void>() {
             @Override
             protected Void doInBackground() throws Exception {
-                var session = Main.sessionFactory.openSession();
                 session.beginTransaction();
                 cemeteryList = Helper.selectAll(Cemetery.class, session);
-                session.getTransaction().commit();
-                session.close();
+//                session.getTransaction().commit();
+//                session.close();
 
                 setProgress(1);
                 return null;

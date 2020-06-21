@@ -13,7 +13,7 @@
         <property name="hibernate.show_sql">true</property>
 
         <!-- manage automatic database creation -->
-        <property name="hibernate.hbm2ddl.auto">update</property>
+        <property name="hibernate.hbm2ddl.auto">create</property>
 
         <!-- mappings -->
         <mapping class="model.Caravan"/>

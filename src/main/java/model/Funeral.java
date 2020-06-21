@@ -1,5 +1,7 @@
 package model;
 
+import org.hibernate.annotations.GenericGenerator;
+
 import javax.persistence.*;
 import java.time.Duration;
 import java.time.LocalDate;
@@ -11,7 +13,8 @@ import java.util.concurrent.CopyOnWriteArrayList;
 @Table(name = "Funeral")
 public class Funeral {
     @Id
-    @GeneratedValue
+    @GeneratedValue(generator = "increment")
+    @GenericGenerator(name = "increment", strategy = "increment")
     private Long id;
 
     private LocalDate orderDate;

@@ -1,12 +1,17 @@
 package model;
 
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
+import org.hibernate.annotations.GenericGenerator;
+
 import javax.persistence.*;
 import java.util.*;
 
 @Entity
 public class Cemetery {
     @Id
-    @GeneratedValue
+    @GeneratedValue(generator = "increment")
+    @GenericGenerator(name = "increment", strategy = "increment")
     private Long id;
 
     private String address;
@@ -62,27 +67,5 @@ public class Cemetery {
     @Override
     public String toString() {
         return getAddress();
-    }
-
-    // all get sets
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public void setQuarters(List<Quarter> quarters) {
-        this.quarters = quarters;
-    }
-
-    public static Set<Quarter> getAllQuarters() {
-        return allQuarters;
-    }
-
-    public static void setAllQuarters(Set<Quarter> allQuarters) {
-        Cemetery.allQuarters = allQuarters;
     }
 }

@@ -1,12 +1,15 @@
 package model;
 
+import org.hibernate.annotations.GenericGenerator;
+
 import javax.persistence.*;
 import java.time.LocalDate;
 
 @Entity
 public class Quarter {
     @Id
-    @GeneratedValue
+    @GeneratedValue(generator = "increment")
+    @GenericGenerator(name = "increment", strategy = "increment")
     private Long id;
 
     private String number;
@@ -32,6 +35,7 @@ public class Quarter {
             throw new Exception("Cemetery does not exist");
         }
         Quarter quarter = new Quarter(number);
+        quarter.setCemetery(cemetery);
         cemetery.addQuarter(quarter);
         return quarter;
     }
@@ -55,32 +59,7 @@ public class Quarter {
         return cemetery;
     }
 
-    // for hibernate - get set
-    private void setCemetery(Cemetery cemetery) {
+    public void setCemetery(Cemetery cemetery) {
         this.cemetery = cemetery;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getNumber() {
-        return number;
-    }
-
-    public void setNumber(String number) {
-        this.number = number;
-    }
-
-    public LocalDate getPaidUntil() {
-        return paidUntil;
-    }
-
-    public void setPaidUntil(LocalDate paidUntil) {
-        this.paidUntil = paidUntil;
     }
 }
