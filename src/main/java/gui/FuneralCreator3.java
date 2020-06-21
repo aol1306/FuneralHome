@@ -1,17 +1,20 @@
 package gui;
 
 import javafx.application.Platform;
+import javafx.beans.binding.Bindings;
 import javafx.beans.property.SimpleListProperty;
+import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
+import javafx.scene.control.cell.ComboBoxTableCell;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.ImageView;
+import javafx.util.Callback;
 import main.Helper;
 import main.Main;
 import model.Cemetery;
@@ -27,7 +30,7 @@ public class FuneralCreator3 extends FuneralCreatorBase {
         public SimpleStringProperty deadmanName = new SimpleStringProperty();
         public SimpleStringProperty deadmanSurname = new SimpleStringProperty();
         public SimpleStringProperty coffinType = new SimpleStringProperty();
-        public SimpleListProperty<Quarter> quarters = new SimpleListProperty<>();
+        public SimpleObjectProperty<Quarter> quarter = new SimpleObjectProperty<>();
 
         public String getDeadmanName() {
             return deadmanName.get();
@@ -41,8 +44,8 @@ public class FuneralCreator3 extends FuneralCreatorBase {
             return coffinType.get();
         }
 
-        public ObservableList<Quarter> getQuarters() {
-            return quarters.get();
+        public Quarter getQuarter() {
+            return quarter.get();
         }
     }
 
@@ -58,7 +61,7 @@ public class FuneralCreator3 extends FuneralCreatorBase {
     @FXML
     private ComboBox<Cemetery> cemeteryComboBox;
 
-    private ObservableList<TableData> tableData;
+    private final ObservableList<TableData> tableData = FXCollections.observableArrayList();
 
     @FXML
     private TableView<TableData> matchCoffinTableView;
@@ -73,9 +76,11 @@ public class FuneralCreator3 extends FuneralCreatorBase {
     private TableColumn<TableData, String> coffinTypeColumn;
 
     @FXML
-    private TableColumn<TableData, List<Quarter>> quartersColumn;
+    private TableColumn<TableData, Quarter> quartersColumn;
 
     private ObservableList<Cemetery> cemeteryComboBoxList;
+
+    private ObservableList<Quarter> quarterList;
 
     private List<Cemetery> cemeteryList;
 
@@ -91,6 +96,7 @@ public class FuneralCreator3 extends FuneralCreatorBase {
             saveData();
             setView("/funeralcreator4.fxml");
         });
+        quarterList = FXCollections.observableArrayList();
         cemeteryComboBoxList = FXCollections.observableArrayList();
         cemeteryComboBox.setItems(cemeteryComboBoxList);
         cemeteryComboBox.setOnAction(e -> {
@@ -104,8 +110,16 @@ public class FuneralCreator3 extends FuneralCreatorBase {
         deadmanNameColumn.setCellValueFactory(new PropertyValueFactory<>("deadmanName"));
         deadmanSurnameColumn.setCellValueFactory(new PropertyValueFactory<>("deadmanSurname"));
         coffinTypeColumn.setCellValueFactory(new PropertyValueFactory<>("coffinType"));
-        quartersColumn.setCellValueFactory(new PropertyValueFactory<>("quarters"));
-        tableData = FXCollections.observableArrayList();
+        quartersColumn.setCellFactory(ComboBoxTableCell.forTableColumn(quarterList));
+        quartersColumn.setCellValueFactory(param -> {
+            TableData td = param.getValue();
+            var selectedCemetery = cemeteryComboBox.getSelectionModel().getSelectedItem();
+            if (selectedCemetery == null) {
+                return new SimpleObjectProperty<>(null);
+            } else {
+                return new SimpleObjectProperty<>(td.getQuarter());
+            }
+        });
         matchCoffinTableView.setItems(tableData);
 
         reloadTable();
@@ -117,11 +131,8 @@ public class FuneralCreator3 extends FuneralCreatorBase {
             protected Void doInBackground() throws Exception {
                 session.beginTransaction();
                 cemeteryList = Helper.selectAll(Cemetery.class, session);
-                var ffffcemeteryList = Helper.selectAll(Cemetery.class, session);
-                var ffffdeleteme = Helper.selectAll(Employee.class, session);
-                var ffffquarter = Helper.selectAll(Quarter.class, session);
                 session.getTransaction().commit();
-//                session.close();
+                session.close();
 
                 setProgress(1);
                 return null;
@@ -152,9 +163,11 @@ public class FuneralCreator3 extends FuneralCreatorBase {
         // load quarters from selected cemetery using association
         var selectedCemetery = cemeteryComboBox.getSelectionModel().getSelectedItem();
         ObservableList<Quarter> quarters = null;
+        quarterList.clear();
         if (selectedCemetery != null) {
             var quartersDb = selectedCemetery.getQuarters();
             quarters = FXCollections.observableArrayList(quartersDb);
+            quarterList.addAll(quarters);
         }
 
         for (var coffin : this.creatorData.getFuneral().getCoffins()) {
@@ -162,10 +175,9 @@ public class FuneralCreator3 extends FuneralCreatorBase {
             tableEntry.deadmanName.setValue(coffin.getDeadmanName());
             tableEntry.deadmanSurname.setValue(coffin.getDeadmanSurname());
             tableEntry.coffinType.setValue(coffin.getType());
-            if (quarters != null) {
-                tableEntry.quarters.setValue(quarters);
-            }
             tableData.add(tableEntry);
         }
+
+        matchCoffinTableView.refresh();
     }
 }

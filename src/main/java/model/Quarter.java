@@ -61,4 +61,9 @@ public class Quarter {
     public void setCemetery(Cemetery cemetery) {
         this.cemetery = cemetery;
     }
+
+    @Override
+    public String toString() {
+        return number;
+    }
 }

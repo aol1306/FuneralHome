@@ -14,11 +14,11 @@
     <children>
         <Label text="Wybierz cmentarz" AnchorPane.leftAnchor="5.0" AnchorPane.topAnchor="5.0" />
         <ComboBox fx:id="cemeteryComboBox" layoutX="39.0" layoutY="26.0" prefWidth="150.0" AnchorPane.leftAnchor="39.0" AnchorPane.topAnchor="26.0" />
-        <TableView fx:id="matchCoffinTableView" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="40.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="80.0">
+        <TableView fx:id="matchCoffinTableView" editable="true" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="40.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="80.0">
             <columns>
-                <TableColumn fx:id="deadmanNameColumn" prefWidth="75.0" text="Imię" />
-                <TableColumn fx:id="deadmanSurnameColumn" prefWidth="75.0" text="Nazwisko" />
-                <TableColumn fx:id="coffinTypeColumn" prefWidth="75.0" text="Trumna" />
+                <TableColumn fx:id="deadmanNameColumn" editable="false" prefWidth="75.0" text="Imię" />
+                <TableColumn fx:id="deadmanSurnameColumn" editable="false" prefWidth="75.0" text="Nazwisko" />
+                <TableColumn fx:id="coffinTypeColumn" editable="false" prefWidth="75.0" text="Trumna" />
                 <TableColumn fx:id="quartersColumn" prefWidth="75.0" text="Kwatera" />
             </columns>
         </TableView>
