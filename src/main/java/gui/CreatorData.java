@@ -15,6 +15,8 @@ public class CreatorData {
     private String deadmanName;
     private String deadmanSurname;
     private List<FuneralCreator2.TableData> selectedSets = new ArrayList<>();
+    // creator page 3 - form data
+    private Cemetery selectedCemetery;
 
     public boolean isStandardCoffinSelected() {
         return standardCoffinSelected;
@@ -70,5 +72,13 @@ public class CreatorData {
 
     public void setFuneral(Funeral funeral) {
         this.funeral = funeral;
+    }
+
+    public Cemetery getSelectedCemetery() {
+        return selectedCemetery;
+    }
+
+    public void setSelectedCemetery(Cemetery selectedCemetery) {
+        this.selectedCemetery = selectedCemetery;
     }
 }

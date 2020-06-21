@@ -1,5 +1,6 @@
 package gui;
 
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -34,9 +35,11 @@ public class FuneralCreator3 extends FuneralCreatorBase {
     public void initialize() {
         loadCemeteries();
         backButton.setOnAction(e -> {
+            saveData();
             setView("/funeralcreator2.fxml");
         });
         nextButton.setOnAction(e -> {
+            saveData();
             setView("/funeralcreator4.fxml");
         });
         cemeteryComboBoxList = FXCollections.observableArrayList();
@@ -65,8 +68,14 @@ public class FuneralCreator3 extends FuneralCreatorBase {
             if("progress".equals(evt.getPropertyName())) {
                 loadingImageView.setVisible(false);
                 cemeteryComboBoxList.addAll(cemeteryList);
+                // load last selected cemetery
+                Platform.runLater(() -> cemeteryComboBox.getSelectionModel().select(creatorData.getSelectedCemetery()));
             }
         });
         worker.execute();
+    }
+
+    private void saveData() {
+        this.creatorData.setSelectedCemetery(cemeteryComboBox.getValue());
     }
 }
