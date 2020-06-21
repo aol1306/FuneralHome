@@ -1,21 +1,48 @@
 package gui;
 
 import javafx.application.Platform;
+import javafx.beans.property.SimpleListProperty;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
-import javafx.scene.image.Image;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.ImageView;
 import main.Helper;
 import main.Main;
 import model.Cemetery;
+import model.Quarter;
 
 import javax.swing.*;
 import java.util.List;
 
 public class FuneralCreator3 extends FuneralCreatorBase {
+    public class TableData {
+        public SimpleStringProperty deadmanName = new SimpleStringProperty();
+        public SimpleStringProperty deadmanSurname = new SimpleStringProperty();
+        public SimpleStringProperty coffinType = new SimpleStringProperty();
+        public SimpleListProperty<Quarter> quarters = new SimpleListProperty<>();
+
+        public String getDeadmanName() {
+            return deadmanName.get();
+        }
+
+        public String getDeadmanSurname() {
+            return deadmanSurname.get();
+        }
+
+        public String getCoffinType() {
+            return coffinType.get();
+        }
+
+        public ObservableList<Quarter> getQuarters() {
+            return quarters.get();
+        }
+    }
     @FXML
     private Button backButton;
 
@@ -27,6 +54,23 @@ public class FuneralCreator3 extends FuneralCreatorBase {
 
     @FXML
     private ComboBox<Cemetery> cemeteryComboBox;
+
+    private ObservableList<TableData> tableData;
+
+    @FXML
+    private TableView<TableData> matchCoffinTableView;
+
+    @FXML
+    private TableColumn<TableData, String> deadmanNameColumn;
+
+    @FXML
+    private TableColumn<TableData, String> deadmanSurnameColumn;
+
+    @FXML
+    private TableColumn<TableData, String> coffinTypeColumn;
+
+    @FXML
+    private TableColumn<TableData, List<Quarter>> quartersColumn;
 
     private ObservableList<Cemetery> cemeteryComboBoxList;
 
@@ -44,10 +88,22 @@ public class FuneralCreator3 extends FuneralCreatorBase {
         });
         cemeteryComboBoxList = FXCollections.observableArrayList();
         cemeteryComboBox.setItems(cemeteryComboBoxList);
+        cemeteryComboBox.setOnAction(e -> {
+            reloadTable();
+        });
     }
 
     public void initData(CreatorData data) {
         super.initData(data);
+
+        deadmanNameColumn.setCellValueFactory(new PropertyValueFactory<>("deadmanName"));
+        deadmanSurnameColumn.setCellValueFactory(new PropertyValueFactory<>("deadmanSurname"));
+        coffinTypeColumn.setCellValueFactory(new PropertyValueFactory<>("coffinType"));
+        quartersColumn.setCellValueFactory(new PropertyValueFactory<>("quarters"));
+        tableData = FXCollections.observableArrayList();
+        matchCoffinTableView.setItems(tableData);
+
+        reloadTable();
     }
 
     private void loadCemeteries() {
@@ -69,7 +125,11 @@ public class FuneralCreator3 extends FuneralCreatorBase {
                 loadingImageView.setVisible(false);
                 cemeteryComboBoxList.addAll(cemeteryList);
                 // load last selected cemetery
-                Platform.runLater(() -> cemeteryComboBox.getSelectionModel().select(creatorData.getSelectedCemetery()));
+                Platform.runLater(() -> {
+                    cemeteryComboBox.getSelectionModel().select(creatorData.getSelectedCemetery());
+                    // reload table after cemetery change
+                    reloadTable();
+                });
             }
         });
         worker.execute();
@@ -77,5 +137,28 @@ public class FuneralCreator3 extends FuneralCreatorBase {
 
     private void saveData() {
         this.creatorData.setSelectedCemetery(cemeteryComboBox.getValue());
+    }
+
+    private void reloadTable() {
+        tableData.clear();
+
+        // load quarters from selected cemetery using association
+        var selectedCemetery = cemeteryComboBox.getSelectionModel().getSelectedItem();
+        ObservableList<Quarter> quarters = null;
+        if (selectedCemetery != null) {
+            var quartersDb = selectedCemetery.getQuarters();
+            quarters = FXCollections.observableArrayList(quartersDb);
+        }
+
+        for (var coffin : this.creatorData.getFuneral().getCoffins()) {
+            var tableEntry = new FuneralCreator3.TableData();
+            tableEntry.deadmanName.setValue(coffin.getDeadmanName());
+            tableEntry.deadmanSurname.setValue(coffin.getDeadmanSurname());
+            tableEntry.coffinType.setValue(coffin.getType());
+            if (quarters != null) {
+                tableEntry.quarters.setValue(quarters);
+            }
+            tableData.add(tableEntry);
+        }
     }
 }

@@ -15,7 +15,8 @@ public class Cemetery {
     @OneToMany(
             mappedBy = "cemetery",
             cascade = CascadeType.ALL,
-            orphanRemoval = true
+            orphanRemoval = true,
+            fetch = FetchType.EAGER
     )
     private List<Quarter> quarters = new ArrayList<>();
     private static Set<Quarter> allQuarters = new HashSet<>();

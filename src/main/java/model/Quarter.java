@@ -49,4 +49,8 @@ public class Quarter {
             coffin.setQuarter(this);
         }
     }
+
+    public Cemetery getCemetery() {
+        return cemetery;
+    }
 }
