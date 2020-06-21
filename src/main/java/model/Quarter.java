@@ -1,5 +1,6 @@
 package model;
 
+import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
@@ -15,9 +16,8 @@ public class Quarter {
     private String number;
     private LocalDate paidUntil;
 
-    @OneToOne(
-            mappedBy = "quarter"
-    )
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name="coffin_id")
     private Coffin coffin;
     @ManyToOne
     private Cemetery cemetery;

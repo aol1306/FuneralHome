@@ -18,9 +18,7 @@ public abstract class Coffin {
     @ManyToOne
     private Funeral funeral;
 
-    @OneToOne(
-            cascade = CascadeType.ALL
-    )
+    @OneToOne(mappedBy = "coffin")
     private Quarter quarter;
 
     public void setFuneral(Funeral funeral) {
