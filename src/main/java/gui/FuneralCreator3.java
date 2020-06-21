@@ -15,6 +15,7 @@ import javafx.scene.image.ImageView;
 import main.Helper;
 import main.Main;
 import model.Cemetery;
+import model.Employee;
 import model.Quarter;
 import org.hibernate.Session;
 
@@ -116,7 +117,10 @@ public class FuneralCreator3 extends FuneralCreatorBase {
             protected Void doInBackground() throws Exception {
                 session.beginTransaction();
                 cemeteryList = Helper.selectAll(Cemetery.class, session);
-//                session.getTransaction().commit();
+                var ffffcemeteryList = Helper.selectAll(Cemetery.class, session);
+                var ffffdeleteme = Helper.selectAll(Employee.class, session);
+                var ffffquarter = Helper.selectAll(Quarter.class, session);
+                session.getTransaction().commit();
 //                session.close();
 
                 setProgress(1);

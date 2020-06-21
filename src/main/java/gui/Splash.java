@@ -5,7 +5,9 @@ import javafx.scene.control.Button;
 import javafx.scene.text.Text;
 import main.Main;
 import model.Cemetery;
+import model.Employee;
 import model.Quarter;
+import model.WorkDay;
 import org.hibernate.boot.MetadataSources;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 
@@ -98,6 +100,11 @@ public class Splash extends ControllerBase {
         var c3 = new Cemetery("ul. Wałbrzyska", 2.0);
         Quarter.createQuarter(c3, "M 31");
         Quarter.createQuarter(c3, "M 32");
+
+        var e1 = new Employee();
+        e1.addWorkDay(new WorkDay());
+        e1.addWorkDay(new WorkDay());
+        session.save(e1);
 
         session.save(c1);
         session.save(c2);

@@ -20,7 +20,6 @@ public class Quarter {
     )
     private Coffin coffin;
     @ManyToOne
-    @JoinColumn(name = "cemetery_id")
     private Cemetery cemetery;
 
     // default constructor for Hibernate

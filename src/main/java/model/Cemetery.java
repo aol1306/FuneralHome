@@ -1,11 +1,10 @@
 package model;
 
-import org.hibernate.annotations.Fetch;
-import org.hibernate.annotations.FetchMode;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 import java.util.*;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 @Entity
 public class Cemetery {
@@ -20,10 +19,11 @@ public class Cemetery {
     @OneToMany(
             mappedBy = "cemetery",
             cascade = CascadeType.ALL,
-            orphanRemoval = true,
-            fetch = FetchType.EAGER
+            orphanRemoval = true
     )
     private List<Quarter> quarters = new ArrayList<>();
+
+    @Transient
     private static Set<Quarter> allQuarters = new HashSet<>();
 
     // default constructor for Hibernate
