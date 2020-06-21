@@ -63,4 +63,26 @@ public class Cemetery {
     public String toString() {
         return getAddress();
     }
+
+    // all get sets
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public void setQuarters(List<Quarter> quarters) {
+        this.quarters = quarters;
+    }
+
+    public static Set<Quarter> getAllQuarters() {
+        return allQuarters;
+    }
+
+    public static void setAllQuarters(Set<Quarter> allQuarters) {
+        Cemetery.allQuarters = allQuarters;
+    }
 }

@@ -17,6 +17,7 @@ public class Quarter {
     )
     private Coffin coffin;
     @ManyToOne
+    @JoinColumn(name = "cemetery_id")
     private Cemetery cemetery;
 
     // default constructor for Hibernate
@@ -52,5 +53,34 @@ public class Quarter {
 
     public Cemetery getCemetery() {
         return cemetery;
+    }
+
+    // for hibernate - get set
+    private void setCemetery(Cemetery cemetery) {
+        this.cemetery = cemetery;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getNumber() {
+        return number;
+    }
+
+    public void setNumber(String number) {
+        this.number = number;
+    }
+
+    public LocalDate getPaidUntil() {
+        return paidUntil;
+    }
+
+    public void setPaidUntil(LocalDate paidUntil) {
+        this.paidUntil = paidUntil;
     }
 }
