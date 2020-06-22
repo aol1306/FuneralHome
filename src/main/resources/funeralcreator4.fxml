@@ -12,11 +12,11 @@
         <Label text="Podsumowanie" AnchorPane.leftAnchor="5.0" AnchorPane.topAnchor="5.0" />
         <TableView fx:id="summaryTableView" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="40.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="25.0">
             <columns>
-                <TableColumn prefWidth="75.0" text="Imię" />
-                <TableColumn prefWidth="75.0" text="Nazwisko" />
-                <TableColumn prefWidth="75.0" text="Trumna" />
-                <TableColumn prefWidth="75.0" text="Kwatera" />
-                <TableColumn prefWidth="75.0" text="Cena" />
+                <TableColumn fx:id="deadmanNameColumn" prefWidth="75.0" text="Imię" />
+                <TableColumn fx:id="deadmanSurnameColumn" prefWidth="75.0" text="Nazwisko" />
+                <TableColumn fx:id="coffinTypeColumn" prefWidth="75.0" text="Trumna" />
+                <TableColumn fx:id="quarterColumn" prefWidth="75.0" text="Kwatera" />
+                <TableColumn fx:id="priceColumn" prefWidth="75.0" text="Cena" />
             </columns>
         </TableView>
           <Button fx:id="cancelButton" mnemonicParsing="false" text="Anuluj zamówienie" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="5.0" />

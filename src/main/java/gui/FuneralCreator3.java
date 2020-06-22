@@ -18,6 +18,7 @@ import javafx.util.Callback;
 import main.Helper;
 import main.Main;
 import model.Cemetery;
+import model.Coffin;
 import model.Employee;
 import model.Quarter;
 import org.hibernate.Session;
@@ -27,6 +28,7 @@ import java.util.List;
 
 public class FuneralCreator3 extends FuneralCreatorBase {
     public class TableData {
+        public Coffin coffinObject;
         public SimpleStringProperty deadmanName = new SimpleStringProperty();
         public SimpleStringProperty deadmanSurname = new SimpleStringProperty();
         public SimpleStringProperty coffinType = new SimpleStringProperty();
@@ -46,6 +48,14 @@ public class FuneralCreator3 extends FuneralCreatorBase {
 
         public Quarter getQuarter() {
             return quarter.get();
+        }
+
+        public Coffin getCoffinObject() {
+            return coffinObject;
+        }
+
+        public void setCoffinObject(Coffin coffinObject) {
+            this.coffinObject = coffinObject;
         }
     }
 
@@ -120,6 +130,10 @@ public class FuneralCreator3 extends FuneralCreatorBase {
                 return new SimpleObjectProperty<>(td.getQuarter());
             }
         });
+        quartersColumn.setOnEditCommit(e -> {
+            var index = this.creatorData.getFuneral().getCoffins().indexOf(e.getRowValue().getCoffinObject());
+            this.creatorData.getFuneral().getCoffins().get(index).setQuarter(e.getNewValue());
+        });
         matchCoffinTableView.setItems(tableData);
 
         reloadTable();
@@ -172,6 +186,7 @@ public class FuneralCreator3 extends FuneralCreatorBase {
 
         for (var coffin : this.creatorData.getFuneral().getCoffins()) {
             var tableEntry = new FuneralCreator3.TableData();
+            tableEntry.setCoffinObject(coffin);
             tableEntry.deadmanName.setValue(coffin.getDeadmanName());
             tableEntry.deadmanSurname.setValue(coffin.getDeadmanSurname());
             tableEntry.coffinType.setValue(coffin.getType());
