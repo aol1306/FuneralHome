@@ -12,6 +12,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import main.Main;
+import model.PremiumCoffin;
 import org.hibernate.Session;
 
 import javax.swing.*;
@@ -133,7 +134,15 @@ public class FuneralCreator4 extends FuneralCreatorBase {
     public void saveFuneral() {
         Session session = Main.sessionFactory.openSession();
         session.beginTransaction();
-        session.save(this.creatorData.getFuneral());
+        session.saveOrUpdate(this.creatorData.getFuneral());
+        for (var coffin : this.creatorData.getFuneral().getCoffins()) {
+            session.update(coffin.getQuarter());
+            if (coffin instanceof PremiumCoffin) {
+                for(var decoration : ((PremiumCoffin) coffin).getDecorations()) {
+                    session.save(decoration);
+                }
+            }
+        }
         session.getTransaction().commit();
         session.close();
     }

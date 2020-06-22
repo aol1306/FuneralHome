@@ -20,6 +20,7 @@ public class Main extends Application {
     public void start(Stage primaryStage) throws Exception {
         var pane = FXMLLoader.load(getClass().getResource("/splash.fxml"));
         primaryStage.setScene(new Scene((Parent) pane));
+        primaryStage.setTitle("Happy End");
         primaryStage.show();
     }
 }

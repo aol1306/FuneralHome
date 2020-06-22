@@ -179,7 +179,7 @@ public class FuneralCreator3 extends FuneralCreatorBase {
         ObservableList<Quarter> quarters = null;
         quarterList.clear();
         if (selectedCemetery != null) {
-            var quartersDb = selectedCemetery.getQuarters();
+            var quartersDb = selectedCemetery.getAvailableQuarters();
             quarters = FXCollections.observableArrayList(quartersDb);
             quarterList.addAll(quarters);
         }

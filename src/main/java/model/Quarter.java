@@ -17,7 +17,6 @@ public class Quarter {
     private LocalDate paidUntil;
 
     @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name="coffin_id")
     private Coffin coffin;
     @ManyToOne
     private Cemetery cemetery;

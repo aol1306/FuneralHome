@@ -5,6 +5,7 @@ import org.hibernate.annotations.GenericGenerator;
 import javax.persistence.*;
 import java.util.*;
 import java.util.concurrent.CopyOnWriteArrayList;
+import java.util.stream.Collectors;
 
 @Entity
 public class Cemetery {
@@ -47,6 +48,15 @@ public class Cemetery {
 
     public List<Quarter> getQuarters() {
         return quarters;
+    }
+
+    /**
+     * Get all quarters, that are not associated with a coffin.
+     * @return list of available quarters
+     */
+    public List<Quarter> getAvailableQuarters() {
+        var all = getQuarters();
+        return all.stream().filter(q -> q.getCoffin() == null).collect(Collectors.toList());
     }
 
     public String getAddress() {
