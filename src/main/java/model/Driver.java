@@ -30,4 +30,20 @@ public class Driver extends Employee {
             caravan.setDriver(this);
         }
     }
+
+    public String getLicenseCategory() {
+        return licenseCategory;
+    }
+
+    public void setLicenseCategory(String licenseCategory) {
+        this.licenseCategory = licenseCategory;
+    }
+
+    public LocalDate getLicenseValidTo() {
+        return licenseValidTo;
+    }
+
+    public void setLicenseValidTo(LocalDate licenseValidTo) {
+        this.licenseValidTo = licenseValidTo;
+    }
 }

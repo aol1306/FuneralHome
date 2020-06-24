@@ -135,4 +135,36 @@ public class Funeral {
     public void setFuneralDate(LocalDate funeralDate) {
         this.funeralDate = funeralDate;
     }
+
+    public LocalDate getOrderDate() {
+        return orderDate;
+    }
+
+    public void setOrderDate(LocalDate orderDate) {
+        this.orderDate = orderDate;
+    }
+
+    public String getClientData() {
+        return clientData;
+    }
+
+    public void setClientData(String clientData) {
+        this.clientData = clientData;
+    }
+
+    public Duration getDuration() {
+        return duration;
+    }
+
+    public void setDuration(Duration duration) {
+        this.duration = duration;
+    }
+
+    public FuneralStatus getStatus() {
+        return status;
+    }
+
+    public void setStatus(FuneralStatus status) {
+        this.status = status;
+    }
 }

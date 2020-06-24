@@ -38,4 +38,12 @@ public class GraveDigger extends Employee {
     public List<Funeral> getFunerals() {
         return funerals;
     }
+
+    public LocalDate getAllowanceCreationDate() {
+        return allowanceCreationDate;
+    }
+
+    public void setAllowanceCreationDate(LocalDate allowanceCreationDate) {
+        this.allowanceCreationDate = allowanceCreationDate;
+    }
 }

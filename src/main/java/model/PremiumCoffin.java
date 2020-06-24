@@ -44,4 +44,12 @@ public class PremiumCoffin extends Coffin {
     public String getType() {
         return "premium";
     }
+
+    public String getMaterial() {
+        return material;
+    }
+
+    public void setMaterial(String material) {
+        this.material = material;
+    }
 }

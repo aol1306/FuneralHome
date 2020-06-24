@@ -19,4 +19,12 @@ public class StandardCoffin extends Coffin {
     public String getType() {
         return "standard";
     }
+
+    public boolean isBurnable() {
+        return isBurnable;
+    }
+
+    public void setBurnable(boolean burnable) {
+        isBurnable = burnable;
+    }
 }

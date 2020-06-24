@@ -72,4 +72,28 @@ public class Employee {
     public List<WorkDay> getWorkDays() {
         return workDays;
     }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getSurname() {
+        return surname;
+    }
+
+    public void setSurname(String surname) {
+        this.surname = surname;
+    }
+
+    public LocalDate getDateOfEmployment() {
+        return dateOfEmployment;
+    }
+
+    public void setDateOfEmployment(LocalDate dateOfEmployment) {
+        this.dateOfEmployment = dateOfEmployment;
+    }
 }

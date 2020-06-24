@@ -70,4 +70,12 @@ public abstract class Coffin {
     public String getType() {
         return "generic";
     }
+
+    public Double getPrice() {
+        return price;
+    }
+
+    public void setPrice(Double price) {
+        this.price = price;
+    }
 }

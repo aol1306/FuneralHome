@@ -57,4 +57,12 @@ public class Caravan {
     public Driver getDriver() {
         return driver;
     }
+
+    public Integer getCapacity() {
+        return capacity;
+    }
+
+    public void setCapacity(Integer capacity) {
+        this.capacity = capacity;
+    }
 }

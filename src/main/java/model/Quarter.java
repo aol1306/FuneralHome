@@ -65,4 +65,12 @@ public class Quarter {
     public String toString() {
         return number;
     }
+
+    public LocalDate getPaidUntil() {
+        return paidUntil;
+    }
+
+    public void setPaidUntil(LocalDate paidUntil) {
+        this.paidUntil = paidUntil;
+    }
 }
