@@ -9,6 +9,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 
+/**
+ * Represents a funeral in a system. Contains associations with classes like: Coffin, Customer, GraveDigger and Caravan.
+ */
 @Entity
 @Table(name = "Funeral")
 public class Funeral {
@@ -59,10 +62,18 @@ public class Funeral {
     )
     private Customer customer;
 
+    /**
+     * Returns a customer associated with this funeral.
+     * @return customer
+     */
     public Customer getCustomer() {
         return customer;
     }
 
+    /**
+     * Sets a customer for this funeral. Creates a reverse association if necessary.
+     * @param customer customer
+     */
     public void setCustomer(Customer customer) {
         if (this.customer == customer) return;
         if (this.customer != null && customer != null) {
@@ -74,6 +85,10 @@ public class Funeral {
         }
     }
 
+    /**
+     * Adds a grave digger for this funeral. Creates a reverse association.
+     * @param graveDigger grave digger
+     */
     public void addGraveDigger(GraveDigger graveDigger) {
         if(!graveDiggers.contains(graveDigger)) {
             graveDiggers.add(graveDigger);
@@ -81,6 +96,10 @@ public class Funeral {
         }
     }
 
+    /**
+     * Removes a grave digger from this funeral, as well as his association with it.
+     * @param graveDigger grave digger
+     */
     public void removeGraveDigger(GraveDigger graveDigger) {
         if(graveDiggers.contains(graveDigger)) {
             graveDiggers.remove(graveDigger);
@@ -88,6 +107,10 @@ public class Funeral {
         }
     }
 
+    /**
+     * Adds a coffin to this funeral. Creates reverse association when needed.
+     * @param coffin coffin
+     */
     public void addCoffin(Coffin coffin) {
         if(!coffins.contains(coffin)) {
             coffins.add(coffin);
@@ -95,6 +118,10 @@ public class Funeral {
         }
     }
 
+    /**
+     * Removes a coffin associated with this funeral. Removes a reverse connection from the coffin.
+     * @param coffin coffin
+     */
     public void removeCoffin(Coffin coffin) {
         if(coffins.contains(coffin)) {
             coffins.remove(coffin);
@@ -102,6 +129,10 @@ public class Funeral {
         }
     }
 
+    /**
+     * Adds a caravan, that will be transporting the coffins for this funeral. Creates a reverse association if needed.
+     * @param caravan caravan
+     */
     public void addCaravan(Caravan caravan) {
         if(!caravans.contains(caravan)) {
             caravans.add(caravan);
@@ -109,6 +140,10 @@ public class Funeral {
         }
     }
 
+    /**
+     * Removes a caravan associated with this funeral. Removes a reverse association if needed.
+     * @param caravan caravan
+     */
     public void removeCaravan(Caravan caravan) {
         if(caravans.contains(caravan)) {
             caravans.add(caravan);
@@ -116,42 +151,82 @@ public class Funeral {
         }
     }
 
+    /**
+     * Returns a list of grave diggers associated with this funeral.
+     * @return list of grave diggers
+     */
     public List<GraveDigger> getGraveDiggers() {
         return graveDiggers;
     }
 
+    /**
+     * Returns a list of coffins associated with this funeral.
+     * @return list of coffins
+     */
     public List<Coffin> getCoffins() {
         return coffins;
     }
 
+    /**
+     * Returns a list of caravans associated with this funeral.
+     * @return list of caravans
+     */
     public List<Caravan> getCaravans() {
         return caravans;
     }
 
+    /**
+     * Returns a date, on which the funeral takes place.
+     * @return date
+     */
     public LocalDate getFuneralDate() {
         return funeralDate;
     }
 
+    /**
+     * Sets a date, on which the funeral takes place.
+     * @param funeralDate date
+     */
     public void setFuneralDate(LocalDate funeralDate) {
         this.funeralDate = funeralDate;
     }
 
+    /**
+     * Returns date on with the order was placed.
+     * @return date
+     */
     public LocalDate getOrderDate() {
         return orderDate;
     }
 
+    /**
+     * Sets date, on which the order is placed.
+     * @param orderDate date
+     */
     public void setOrderDate(LocalDate orderDate) {
         this.orderDate = orderDate;
     }
 
+    /**
+     * Returns client information.
+     * @return client data
+     */
     public String getClientData() {
         return clientData;
     }
 
+    /**
+     * Sets client information
+     * @param clientData client data
+     */
     public void setClientData(String clientData) {
         this.clientData = clientData;
     }
 
+    /**
+     * Returns funeral duration.
+     * @return duration
+     */
     public Duration getDuration() {
         return duration;
     }
@@ -160,10 +235,18 @@ public class Funeral {
         this.duration = duration;
     }
 
+    /**
+     * Returns funeral status.
+     * @return status
+     */
     public FuneralStatus getStatus() {
         return status;
     }
 
+    /**
+     * Sets funeral status
+     * @param status status
+     */
     public void setStatus(FuneralStatus status) {
         this.status = status;
     }

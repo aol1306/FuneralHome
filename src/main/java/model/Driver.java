@@ -5,6 +5,9 @@ import org.hibernate.annotations.GenericGenerator;
 import javax.persistence.*;
 import java.time.LocalDate;
 
+/**
+ * Driver is an employee that transports coffins to funeral place, using a caravan as transport method.
+ */
 @Entity
 public class Driver extends Employee {
     @Id
@@ -20,6 +23,10 @@ public class Driver extends Employee {
     )
     private Caravan caravan;
 
+    /**
+     * Sets a caravan that is associated with the driver. Creates reverse connection when needed.
+     * @param caravan caravan
+     */
     public void setCaravan(Caravan caravan) {
         if (this.caravan == caravan) return;
         if (this.caravan != null && caravan != null) {
@@ -31,18 +38,34 @@ public class Driver extends Employee {
         }
     }
 
+    /**
+     * Returns driver's driving license category.
+     * @return driving license category
+     */
     public String getLicenseCategory() {
         return licenseCategory;
     }
 
+    /**
+     * Sets driver's driving license category.
+     * @param licenseCategory driving license category.
+     */
     public void setLicenseCategory(String licenseCategory) {
         this.licenseCategory = licenseCategory;
     }
 
+    /**
+     * Returns the date of validity of driving license.
+     * @return date
+     */
     public LocalDate getLicenseValidTo() {
         return licenseValidTo;
     }
 
+    /**
+     * Sets the date of validity of the driving license.
+     * @param licenseValidTo date
+     */
     public void setLicenseValidTo(LocalDate licenseValidTo) {
         this.licenseValidTo = licenseValidTo;
     }

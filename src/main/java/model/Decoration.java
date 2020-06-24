@@ -4,6 +4,9 @@ import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 
+/**
+ * Decorations for premium coffin.
+ */
 @Entity
 public class Decoration {
     @Id
@@ -18,6 +21,10 @@ public class Decoration {
     @ManyToOne
     private PremiumCoffin premiumCoffin;
 
+    /**
+     * Sets premium coffin associated with this decoration.
+     * @param premiumCoffin premium coffin
+     */
     public void setPremiumCoffin(PremiumCoffin premiumCoffin) {
         if (this.premiumCoffin == premiumCoffin) return;
         if (this.premiumCoffin != null) {
@@ -29,30 +36,58 @@ public class Decoration {
         }
     }
 
+    /**
+     * Gets the premium coffin associated with this decoration
+     * @return premium coffin
+     */
     public PremiumCoffin getPremiumCoffin() {
         return premiumCoffin;
     }
 
+    /**
+     * Returns decoration name.
+     * @return decoration name
+     */
     public String getName() {
         return name;
     }
 
+    /**
+     * Sets decoration name.
+     * @param name name
+     */
     public void setName(String name) {
         this.name = name;
     }
 
+    /**
+     * Returns material, of which the decoration is made.
+     * @return material
+     */
     public String getMaterial() {
         return material;
     }
 
+    /**
+     * Sets material, of which the decoration is made.
+     * @param material material
+     */
     public void setMaterial(String material) {
         this.material = material;
     }
 
+    /**
+     * Returns decoration price.
+     * @return price
+     */
     public Double getPrice() {
         return price;
     }
 
+    /**
+     * Sets decoration price.
+     * @param price price
+     */
     public void setPrice(Double price) {
         this.price = price;
     }

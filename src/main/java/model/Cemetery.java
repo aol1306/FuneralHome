@@ -7,6 +7,9 @@ import java.util.*;
 import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.stream.Collectors;
 
+/**
+ * Represents a cemetery, with associated Quarters.
+ */
 @Entity
 public class Cemetery {
     @Id
@@ -28,14 +31,26 @@ public class Cemetery {
     @Transient
     private static Set<Quarter> allQuarters = new HashSet<>();
 
-    // default constructor for Hibernate
+    /**
+     * Default constructor used by Hibernate
+     */
     private Cemetery() {}
 
+    /**
+     * Creates Cemetery object setting basic attributes.
+     * @param address Cemetery address
+     * @param distanceFromFuneralHome distance from funeral home
+     */
     public Cemetery(String address, Double distanceFromFuneralHome) {
         setAddress(address);
         setDistanceFromFuneralHome(distanceFromFuneralHome);
     }
 
+    /**
+     * Associates a quarter with this cemetery.
+     * @param quarter quarter
+     * @throws Exception when quarter is already associated with another cemetery
+     */
     public void addQuarter(Quarter quarter) throws Exception {
         if (!quarters.contains(quarter)) {
             if (allQuarters.contains(quarter)) {
@@ -46,6 +61,10 @@ public class Cemetery {
         }
     }
 
+    /**
+     * Returns all quarters associated with this cemetery.
+     * @return quarter list
+     */
     public List<Quarter> getQuarters() {
         return quarters;
     }
@@ -59,22 +78,41 @@ public class Cemetery {
         return all.stream().filter(q -> q.getCoffin() == null).collect(Collectors.toList());
     }
 
+    /**
+     * Returns address of this cemetery
+     * @return address
+     */
     public String getAddress() {
         return address;
     }
 
+    /**
+     * Sets address for this cemetery
+     * @param address
+     */
     public void setAddress(String address) {
         this.address = address;
     }
 
+    /**
+     * Returns distance between this cemetery and funeral home.
+     * @return distance
+     */
     public Double getDistanceFromFuneralHome() {
         return distanceFromFuneralHome;
     }
 
+    /**
+     * Sets the distance between this cemetery and funeral home.
+     * @param distanceFromFuneralHome distance
+     */
     public void setDistanceFromFuneralHome(Double distanceFromFuneralHome) {
         this.distanceFromFuneralHome = distanceFromFuneralHome;
     }
 
+    /**
+     * @return Cemetery address
+     */
     @Override
     public String toString() {
         return getAddress();
