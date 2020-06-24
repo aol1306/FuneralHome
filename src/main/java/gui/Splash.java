@@ -1,5 +1,6 @@
 package gui;
 
+import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -101,13 +102,15 @@ public class Splash extends ControllerBase {
         if (session == null) {
             session = Main.sessionFactory.openSession();
         }
-        session.beginTransaction();
-        cemeteries.addAll(Helper.selectAll(Cemetery.class, session));
-        session.getTransaction().commit();
+        Platform.runLater(() -> {
+            session.beginTransaction();
+            cemeteries.addAll(Helper.selectAll(Cemetery.class, session));
+            session.getTransaction().commit();
 
-        cemeteryListView.getSelectionModel().selectedItemProperty().addListener((observableValue, oldValue, newValue) -> {
-            quarterListView.getItems().clear();
-            quarterListView.getItems().addAll(newValue.getQuarters());
+            cemeteryListView.getSelectionModel().selectedItemProperty().addListener((observableValue, oldValue, newValue) -> {
+                quarterListView.getItems().clear();
+                quarterListView.getItems().addAll(newValue.getQuarters());
+            });
         });
     }
 
