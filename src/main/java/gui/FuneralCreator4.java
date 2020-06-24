@@ -20,6 +20,7 @@ import org.hibernate.Session;
 
 import javax.swing.*;
 import java.io.IOException;
+import java.time.LocalDate;
 
 public class FuneralCreator4 extends FuneralCreatorBase {
     public class TableData {
@@ -163,6 +164,7 @@ public class FuneralCreator4 extends FuneralCreatorBase {
             }
         }
         this.creatorData.getFuneral().addGraveDigger(selectedDigger);
+        this.creatorData.getFuneral().setOrderDate(LocalDate.now());
 
         session.saveOrUpdate(this.creatorData.getFuneral());
         for (var coffin : this.creatorData.getFuneral().getCoffins()) {
