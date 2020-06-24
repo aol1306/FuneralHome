@@ -217,13 +217,16 @@ public class FuneralCreator2 extends FuneralCreatorBase {
             Coffin coffin;
             if (entry.coffinType.getValue().equals(CoffinType.STANDARD.getName())) {
                 coffin = new StandardCoffin();
+                coffin.setPrice(300.0);
             }
             // premium type
             else {
                 coffin = new PremiumCoffin();
+                coffin.setPrice(1000.0);
                 for (var decorationName : entry.decorations.getValue()) {
                     var decoration = new Decoration();
                     decoration.setName(decorationName);
+                    decoration.setPrice(100.0);
                     ((PremiumCoffin)coffin).addDecoration(decoration);
                 }
             }

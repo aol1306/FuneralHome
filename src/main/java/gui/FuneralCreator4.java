@@ -7,6 +7,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -50,6 +51,9 @@ public class FuneralCreator4 extends FuneralCreatorBase {
     private TableView<TableData> summaryTableView;
 
     private final ObservableList<TableData> tableData = FXCollections.observableArrayList();
+
+    @FXML
+    private Label totalText;
 
     @FXML
     private TableColumn<TableData, String> deadmanNameColumn;
@@ -104,6 +108,15 @@ public class FuneralCreator4 extends FuneralCreatorBase {
                 ioException.printStackTrace();
             }
         });
+        cancelButton.setOnAction(e -> {
+            // go to splash
+            try {
+                var pane = (AnchorPane) FXMLLoader.load(getClass().getResource("/splash.fxml"));
+                rootPane.getChildren().setAll(pane);
+            } catch (IOException ioException) {
+                ioException.printStackTrace();
+            }
+        });
 
         deadmanNameColumn.setCellValueFactory(new PropertyValueFactory<>("deadmanName"));
         deadmanSurnameColumn.setCellValueFactory(new PropertyValueFactory<>("deadmanSurname"));
@@ -116,15 +129,18 @@ public class FuneralCreator4 extends FuneralCreatorBase {
     public void initData(CreatorData data) {
         super.initData(data);
 
+        Double total = 0.0;
         for (var coffin : this.creatorData.getFuneral().getCoffins()) {
             var tableEntry = new FuneralCreator4.TableData();
             tableEntry.deadmanName.setValue(coffin.getDeadmanName());
             tableEntry.deadmanSurname.setValue(coffin.getDeadmanSurname());
             tableEntry.coffinType.setValue(coffin.getType());
             tableEntry.quarter.setValue(coffin.getQuarter().toString());
-            tableEntry.price.setValue("milion złotych");
+            tableEntry.price.setValue(coffin.getTotalPrice().toString());
+            total += coffin.getTotalPrice();
             tableData.add(tableEntry);
         }
+        totalText.setText("Razem do zapłaty: " + total.toString()+"zł");
     }
 
     /**

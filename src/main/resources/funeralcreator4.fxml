@@ -20,7 +20,7 @@
             </columns>
         </TableView>
           <Button fx:id="cancelButton" mnemonicParsing="false" text="Anuluj zamówienie" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="5.0" />
-          <Label text="Razem do zapłaty: 0.00zł" AnchorPane.bottomAnchor="10.0" AnchorPane.rightAnchor="170.0" />
+          <Label fx:id="totalText" text="Razem do zapłaty: 0.00zł" AnchorPane.bottomAnchor="10.0" AnchorPane.rightAnchor="170.0" />
           <Button fx:id="backButton" mnemonicParsing="false" prefWidth="60.0" styleClass="flow-button" text="Wstecz" AnchorPane.bottomAnchor="5.0" AnchorPane.rightAnchor="80.0">
               <opaqueInsets>
                   <Insets />

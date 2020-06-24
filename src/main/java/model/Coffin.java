@@ -78,4 +78,8 @@ public abstract class Coffin {
     public void setPrice(Double price) {
         this.price = price;
     }
+
+    public Double getTotalPrice() {
+        return this.getPrice();
+    }
 }

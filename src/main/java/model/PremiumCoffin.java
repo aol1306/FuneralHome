@@ -52,4 +52,13 @@ public class PremiumCoffin extends Coffin {
     public void setMaterial(String material) {
         this.material = material;
     }
+
+    @Override
+    public Double getTotalPrice() {
+        var ret = this.getPrice();
+        for (var decoration : getDecorations()) {
+            ret += decoration.getPrice();
+        }
+        return ret;
+    }
 }
