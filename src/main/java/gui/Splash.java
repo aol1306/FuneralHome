@@ -1,13 +1,13 @@
 package gui;
 
 import javafx.application.Platform;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.text.Text;
@@ -39,6 +39,9 @@ public class Splash extends ControllerBase {
     @FXML
     private Text text;
 
+    @FXML
+    private ImageView loadingImageView;
+
     Session session;
 
     ObservableList<Cemetery> cemeteries = FXCollections.observableArrayList();
@@ -49,12 +52,17 @@ public class Splash extends ControllerBase {
         HBox.setHgrow(quarterListView, Priority.ALWAYS);
         cemeteryListView.setItems(cemeteries);
         quarterListView.setItems(quarters);
+        setIsBusyNow(false);
         planFuneralButton.setOnAction(e -> {
-            setView("/funeralcreator1.fxml");
+            if (verifyStartConditions()) {
+                setView("/funeralcreator1.fxml");
+            } else {
+                showErrorAlert("Brak zasobów w systemie", "Zaplanowanie pogrzebu nie jest teraz możliwe.");
+            }
         });
         addTestDataButton.setOnAction(e -> {
             text.setText("Dodaję dane do db...");
-            setDisableButtons(true);
+            setIsBusyNow(true);
             var worker = new SwingWorker<Void, Void>() {
                 @Override
                 protected Void doInBackground() throws Exception {
@@ -66,7 +74,7 @@ public class Splash extends ControllerBase {
             worker.addPropertyChangeListener(evt -> {
                 if ("progress".equals(evt.getPropertyName())) {
                     text.setText("Gotowe!");
-                    setDisableButtons(false);
+                    setIsBusyNow(false);
                     initListView();
                 }
             });
@@ -85,12 +93,12 @@ public class Splash extends ControllerBase {
         worker.addPropertyChangeListener(evt -> {
             if ("progress".equals(evt.getPropertyName())) {
                 text.setText("Gotowe!");
-                setDisableButtons(false);
+                setIsBusyNow(false);
                 initListView();
             }
         });
         if (Main.registry == null) {
-            setDisableButtons(true);
+            setIsBusyNow(true);
             worker.execute();
         }
 
@@ -103,6 +111,7 @@ public class Splash extends ControllerBase {
             session = Main.sessionFactory.openSession();
         }
         Platform.runLater(() -> {
+            loadingImageView.setVisible(true);
             session.beginTransaction();
             cemeteries.addAll(Helper.selectAll(Cemetery.class, session));
             session.getTransaction().commit();
@@ -111,6 +120,7 @@ public class Splash extends ControllerBase {
                 quarterListView.getItems().clear();
                 quarterListView.getItems().addAll(newValue.getQuarters());
             });
+            loadingImageView.setVisible(false);
         });
     }
 
@@ -154,6 +164,10 @@ public class Splash extends ControllerBase {
         e1.addWorkDay(new WorkDay());
         session.save(e1);
 
+        var d1 = new Driver();
+        d1.setCaravan(new Caravan());
+        session.save(d1);
+
         session.save(c1);
         session.save(c2);
         session.save(c3);
@@ -162,8 +176,36 @@ public class Splash extends ControllerBase {
         System.out.println("completed");
     }
 
-    private void setDisableButtons(boolean value) {
+    private void setIsBusyNow(boolean value) {
         planFuneralButton.setDisable(value);
         addTestDataButton.setDisable(value);
+        loadingImageView.setVisible(value);
+    }
+
+    /**
+     * Check if there is an employee, caravan and a quarter
+     * @return
+     */
+    boolean verifyStartConditions() {
+        if (Main.registry == null) return false;
+        setIsBusyNow(true);
+        var session = Main.sessionFactory.openSession();
+        session.beginTransaction();
+        var ret = true;
+        if (ret && (Long)session.createQuery("select count(*) from Employee").uniqueResult() == 0) ret = false;
+        if (ret && (Long)session.createQuery("select count(*) from Caravan").uniqueResult() == 0) ret = false;
+        if (ret && (Long)session.createQuery("select count(*) from Quarter").uniqueResult() == 0) ret = false;
+        session.getTransaction().commit();
+        session.close();
+        setIsBusyNow(false);
+        return ret;
+    }
+
+    private void showErrorAlert(String header, String message) {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Uwaga");
+        alert.setHeaderText(header);
+        alert.setContentText(message);
+        alert.show();
     }
 }
