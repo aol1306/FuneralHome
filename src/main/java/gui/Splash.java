@@ -1,13 +1,19 @@
 package gui;
 
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.text.Text;
+import main.Helper;
 import main.Main;
 import model.*;
+import org.hibernate.Session;
 import org.hibernate.boot.MetadataSources;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 
@@ -21,7 +27,7 @@ public class Splash extends ControllerBase {
     private ListView<Cemetery> cemeteryListView;
 
     @FXML
-    private ListView<Funeral> funeralListView;
+    private ListView<Quarter> quarterListView;
 
     @FXML
     private HBox listHBox;
@@ -32,9 +38,16 @@ public class Splash extends ControllerBase {
     @FXML
     private Text text;
 
+    Session session;
+
+    ObservableList<Cemetery> cemeteries = FXCollections.observableArrayList();
+    ObservableList<Quarter> quarters = FXCollections.observableArrayList();
+
     public void initialize() {
         HBox.setHgrow(cemeteryListView, Priority.ALWAYS);
-        HBox.setHgrow(funeralListView, Priority.ALWAYS);
+        HBox.setHgrow(quarterListView, Priority.ALWAYS);
+        cemeteryListView.setItems(cemeteries);
+        quarterListView.setItems(quarters);
         planFuneralButton.setOnAction(e -> {
             setView("/funeralcreator1.fxml");
         });
@@ -53,11 +66,11 @@ public class Splash extends ControllerBase {
                 if ("progress".equals(evt.getPropertyName())) {
                     text.setText("Gotowe!");
                     setDisableButtons(false);
+                    initListView();
                 }
             });
             worker.execute();
         });
-        setDisableButtons(true);
 
         // db init
         var worker = new SwingWorker<Void, Void>() {
@@ -72,9 +85,30 @@ public class Splash extends ControllerBase {
             if ("progress".equals(evt.getPropertyName())) {
                 text.setText("Gotowe!");
                 setDisableButtons(false);
+                initListView();
             }
         });
-        worker.execute();
+        if (Main.registry == null) {
+            setDisableButtons(true);
+            worker.execute();
+        }
+
+        initListView();
+    }
+
+    private void initListView() {
+        if (Main.registry == null) return;
+        if (session == null) {
+            session = Main.sessionFactory.openSession();
+        }
+        session.beginTransaction();
+        cemeteries.addAll(Helper.selectAll(Cemetery.class, session));
+        session.getTransaction().commit();
+
+        cemeteryListView.getSelectionModel().selectedItemProperty().addListener((observableValue, oldValue, newValue) -> {
+            quarterListView.getItems().clear();
+            quarterListView.getItems().addAll(newValue.getQuarters());
+        });
     }
 
     /**

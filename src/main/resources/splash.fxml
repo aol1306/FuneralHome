@@ -15,7 +15,7 @@
       <HBox fx:id="listHBox" layoutX="5.0" layoutY="58.0" AnchorPane.bottomAnchor="35.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="60.0">
          <children>
             <ListView fx:id="cemeteryListView" maxWidth="1.7976931348623157E308" />
-            <ListView fx:id="funeralListView" maxWidth="1.7976931348623157E308" />
+            <ListView fx:id="quarterListView" maxWidth="1.7976931348623157E308" />
          </children>
       </HBox>
    </children>

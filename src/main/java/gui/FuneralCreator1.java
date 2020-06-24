@@ -1,12 +1,15 @@
 package gui;
 
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
 import javafx.scene.control.DateCell;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.AnchorPane;
 import model.Customer;
 
+import java.io.IOException;
 import java.time.LocalDate;
 
 
@@ -32,7 +35,13 @@ public class FuneralCreator1 extends FuneralCreatorBase {
 
     public void initialize() {
         backButton.setOnAction(e -> {
-            setView("/splash.fxml");
+            // go to splash
+            try {
+                var pane = (AnchorPane) FXMLLoader.load(getClass().getResource("/splash.fxml"));
+                rootPane.getChildren().setAll(pane);
+            } catch (IOException ioException) {
+                ioException.printStackTrace();
+            }
         });
         nextButton.setOnAction(e -> {
             saveData();
