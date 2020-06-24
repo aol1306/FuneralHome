@@ -2,12 +2,12 @@ package gui;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.ListView;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.Priority;
 import javafx.scene.text.Text;
 import main.Main;
-import model.Cemetery;
-import model.Employee;
-import model.Quarter;
-import model.WorkDay;
+import model.*;
 import org.hibernate.boot.MetadataSources;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 
@@ -15,19 +15,30 @@ import javax.swing.*;
 
 public class Splash extends ControllerBase {
     @FXML
-    private Button planFuneralButton;
+    private Button addTestDataButton;
 
     @FXML
-    private Button addMockDataButton;
+    private ListView<Cemetery> cemeteryListView;
+
+    @FXML
+    private ListView<Funeral> funeralListView;
+
+    @FXML
+    private HBox listHBox;
+
+    @FXML
+    private Button planFuneralButton;
 
     @FXML
     private Text text;
 
     public void initialize() {
+        HBox.setHgrow(cemeteryListView, Priority.ALWAYS);
+        HBox.setHgrow(funeralListView, Priority.ALWAYS);
         planFuneralButton.setOnAction(e -> {
             setView("/funeralcreator1.fxml");
         });
-        addMockDataButton.setOnAction(e -> {
+        addTestDataButton.setOnAction(e -> {
             text.setText("Dodaję dane do db...");
             setDisableButtons(true);
             var worker = new SwingWorker<Void, Void>() {
@@ -116,6 +127,6 @@ public class Splash extends ControllerBase {
 
     private void setDisableButtons(boolean value) {
         planFuneralButton.setDisable(value);
-        addMockDataButton.setDisable(value);
+        addTestDataButton.setDisable(value);
     }
 }
