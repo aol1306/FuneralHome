@@ -167,4 +167,11 @@ public class Funeral {
     public void setStatus(FuneralStatus status) {
         this.status = status;
     }
+
+    /**
+     * Marks funeral as cancelled.
+     */
+    public void cancelFuneral() {
+        this.setStatus(FuneralStatus.ORDER_CANCELLED);
+    }
 }
