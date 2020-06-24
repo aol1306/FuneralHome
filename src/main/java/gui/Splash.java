@@ -159,7 +159,7 @@ public class Splash extends ControllerBase {
         Quarter.createQuarter(c3, "M 31");
         Quarter.createQuarter(c3, "M 32");
 
-        var e1 = new Employee();
+        var e1 = new GraveDigger();
         e1.addWorkDay(new WorkDay());
         e1.addWorkDay(new WorkDay());
         session.save(e1);

@@ -2,18 +2,31 @@ package gui;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.control.Button;
-import javafx.scene.control.DateCell;
-import javafx.scene.control.DatePicker;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.Priority;
+import javafx.scene.layout.VBox;
+import main.Helper;
+import main.Main;
+import model.Cemetery;
 import model.Customer;
+import model.GraveDigger;
+import org.hibernate.Session;
 
 import java.io.IOException;
 import java.time.LocalDate;
 
 
 public class FuneralCreator1 extends FuneralCreatorBase {
+    @FXML
+    public Label dateSuggestionLabel;
+
+    @FXML
+    private VBox vbox2;
+
+    @FXML
+    private VBox vbox1;
 
     @FXML
     private Button backButton;
@@ -34,6 +47,8 @@ public class FuneralCreator1 extends FuneralCreatorBase {
     private DatePicker datePicker;
 
     public void initialize() {
+        HBox.setHgrow(vbox1, Priority.ALWAYS);
+        HBox.setHgrow(vbox2, Priority.ALWAYS);
         backButton.setOnAction(e -> {
             // go to splash
             try {
@@ -56,6 +71,14 @@ public class FuneralCreator1 extends FuneralCreatorBase {
                 setDisable(empty || date.compareTo(today) < 0);
             }
         });
+
+        datePicker.valueProperty().addListener((ov, oldValue, newValue) -> {
+            if(!checkDate(newValue)) {
+                dateSuggestionLabel.setText("Termin niedostępny. Proponowany: "+getNextAvailableDate());
+            } else {
+                dateSuggestionLabel.setText("");
+            };
+        });
     }
 
     private void saveData() {
@@ -74,5 +97,43 @@ public class FuneralCreator1 extends FuneralCreatorBase {
         this.clientSurname.setText(this.creatorData.getFuneral().getCustomer().getSurname());
         this.clientPhoneNumber.setText(this.creatorData.getFuneral().getCustomer().getPhoneNumber());
         this.datePicker.setValue(this.creatorData.getFuneral().getFuneralDate());
+    }
+
+    /**
+     * Check resources availability on date
+     * @param localDate date
+     * @return true if date is available, else false
+     */
+    public boolean checkDate(LocalDate localDate) {
+        var ret = true;
+        Session session = Main.sessionFactory.openSession();
+        session.beginTransaction();
+        var graveDiggers = Helper.selectAll(GraveDigger.class, session);
+        if (graveDiggers.size() == 0) ret = false;
+        for (var digger : graveDiggers) {
+            if (!digger.isAvailable(localDate)) {
+                ret = false;
+                break;
+            }
+        }
+        session.getTransaction().commit();
+        session.close();
+        return ret;
+    }
+
+    /**
+     * Get next date, on which the funeral can happen.
+     * @return next available date
+     */
+    public LocalDate getNextAvailableDate() {
+        var date = LocalDate.now();
+        while (true) {
+            if (checkDate(date)) {
+                break;
+            } else {
+                date = date.plusDays(1);
+            }
+        }
+        return date;
     }
 }

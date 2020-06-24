@@ -12,7 +12,9 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
+import main.Helper;
 import main.Main;
+import model.GraveDigger;
 import model.PremiumCoffin;
 import org.hibernate.Session;
 
@@ -150,6 +152,18 @@ public class FuneralCreator4 extends FuneralCreatorBase {
     public void saveFuneral() {
         Session session = Main.sessionFactory.openSession();
         session.beginTransaction();
+
+        // find grave digger
+        var graveDiggers = Helper.selectAll(GraveDigger.class, session);
+        GraveDigger selectedDigger = null;
+        for (var digger : graveDiggers) {
+            if (digger.isAvailable(this.creatorData.getFuneral().getFuneralDate())) {
+                selectedDigger = digger;
+                break;
+            }
+        }
+        this.creatorData.getFuneral().addGraveDigger(selectedDigger);
+
         session.saveOrUpdate(this.creatorData.getFuneral());
         for (var coffin : this.creatorData.getFuneral().getCoffins()) {
             session.update(coffin.getQuarter());

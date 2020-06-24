@@ -22,14 +22,14 @@ public class GraveDigger extends Employee {
     private List<Funeral> funerals = new ArrayList<>();
 
     public void addFuneral(Funeral funeral) {
-        if(!funerals.contains(funeral)) {
+        if (!funerals.contains(funeral)) {
             funerals.add(funeral);
             funeral.addGraveDigger(this);
         }
     }
 
     public void removeFuneral(Funeral funeral) {
-        if(funerals.contains(funeral)) {
+        if (funerals.contains(funeral)) {
             funerals.remove(funeral);
             funeral.removeGraveDigger(this);
         }
@@ -45,5 +45,18 @@ public class GraveDigger extends Employee {
 
     public void setAllowanceCreationDate(LocalDate allowanceCreationDate) {
         this.allowanceCreationDate = allowanceCreationDate;
+    }
+
+    /**
+     * Check grave digger's availability
+     *
+     * @param localDate date
+     * @return true if is available, else false
+     */
+    public boolean isAvailable(LocalDate localDate) {
+        for (var funeral : funerals) {
+            if (funeral.getFuneralDate().compareTo(localDate) == 0) return false;
+        }
+        return true;
     }
 }
