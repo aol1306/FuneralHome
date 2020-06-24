@@ -116,4 +116,20 @@ public class Quarter {
     public void setPaidUntil(LocalDate paidUntil) {
         this.paidUntil = paidUntil;
     }
+
+    /**
+     * Returns this quarter unique number.
+     * @return number
+     */
+    public String getNumber() {
+        return number;
+    }
+
+    /**
+     * Sets this quarter unique number.
+     * @param number number
+     */
+    public void setNumber(String number) {
+        this.number = number;
+    }
 }

@@ -56,6 +56,12 @@ public class Cemetery {
             if (allQuarters.contains(quarter)) {
                 throw new Exception("This quarter is already used with another cemetery!");
             }
+            // check if any other quarter has the same number
+            for (var q : this.quarters) {
+                if (q.getNumber().equals(quarter.getNumber())) {
+                    throw new Exception("Quarter number is not unique.");
+                }
+            }
             quarters.add(quarter);
             allQuarters.add(quarter);
         }
